@@ -254,8 +254,11 @@ section {
 }
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 320px));
+  justify-content: center;
+  gap: 48px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 .work-card:nth-child(even) { margin-top: 0; }
 .work-art {
@@ -613,7 +616,7 @@ footer a:hover { color: var(--accent); }
   .manifesto { grid-template-columns: 1fr; gap: 30px; }
   .section-head { grid-template-columns: 1fr; gap: 20px; text-align: left; }
   .section-head > div { grid-column: 1; text-align: left; }
-  .work-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .work-grid { grid-template-columns: repeat(2, minmax(0, 280px)); gap: 36px 12px; }
   .work-card:nth-child(even) { margin-top: 0; }
   .work-info { flex-direction: column; gap: 4px; margin-top: 12px; padding-top: 12px; }
   .work-info h3 { font-size: 15px; }
@@ -636,6 +639,7 @@ footer a:hover { color: var(--accent); }
 }
 
 @media (max-width: 520px) {
+  .work-grid { grid-template-columns: minmax(0, 320px); gap: 40px; }
   .piercing-grid { grid-template-columns: minmax(0, 320px); gap: 40px; }
 }
 
