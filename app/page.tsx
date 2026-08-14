@@ -57,7 +57,8 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Ruby Tattoo Studio ana sayfa">
-          <img src="/logo.png" alt="Ruby Tattoo Studio Logo" style={{ height: '40px', objectFit: 'contain' }} />
+          <strong>RUBY</strong>
+          <small>TATTOO STUDIO · 2008</small>
         </a>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Ana menü">
           <a href="#work" onClick={() => setMenuOpen(false)}>Çalışmalar</a>
@@ -244,7 +245,8 @@ export default function Home() {
 
       <footer className="fade-in-section">
         <div className="footer-logo">
-          <img src="/logo.png" alt="Ruby Tattoo Studio Logo" style={{ height: '60px', objectFit: 'contain', display: 'block' }} />
+          <strong>RUBY</strong>
+          <span>TATTOO STUDIO · 2008</span>
         </div>
         <div>
           <p>BALIKESİR, TÜRKİYE</p>
