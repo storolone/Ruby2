@@ -616,14 +616,14 @@ footer a:hover { color: var(--accent); }
   .manifesto { grid-template-columns: 1fr; gap: 30px; }
   .section-head { grid-template-columns: 1fr; gap: 20px; text-align: left; }
   .section-head > div { grid-column: 1; text-align: left; }
-  .work-grid { grid-template-columns: repeat(2, minmax(0, 280px)); gap: 36px 12px; }
+  .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
   .work-card:nth-child(even) { margin-top: 0; }
   .work-info { flex-direction: column; gap: 4px; margin-top: 12px; padding-top: 12px; }
   .work-info h3 { font-size: 15px; }
   .work-info p { font-size: 11px; margin: 0; }
   .work-info > span { display: none; }
   .piercing-head > div p { margin: 12px 0 0; }
-  .piercing-grid { grid-template-columns: repeat(2, minmax(0, 280px)); gap: 36px 12px; }
+  .piercing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
   .artist-intro { grid-template-columns: 1fr; gap: 20px; }
   .artist-row { grid-template-columns: 30px 1fr 40px auto; }
   .artist-row p { grid-column: 2; margin-top: 4px; }
@@ -639,8 +639,11 @@ footer a:hover { color: var(--accent); }
 }
 
 @media (max-width: 520px) {
-  .work-grid { grid-template-columns: minmax(0, 320px); gap: 40px; }
-  .piercing-grid { grid-template-columns: minmax(0, 320px); gap: 40px; }
+  .work-grid,
+  .piercing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 10px;
+  }
 }
 
 /* Hide seal */
