@@ -302,8 +302,11 @@ section {
 }
 .piercing-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 320px));
+  justify-content: center;
   gap: 48px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 .piercing-art {
   aspect-ratio: 3 / 4;
@@ -617,7 +620,7 @@ footer a:hover { color: var(--accent); }
   .work-info p { font-size: 11px; margin: 0; }
   .work-info > span { display: none; }
   .piercing-head > div p { margin: 12px 0 0; }
-  .piercing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
+  .piercing-grid { grid-template-columns: repeat(2, minmax(0, 280px)); gap: 36px 12px; }
   .artist-intro { grid-template-columns: 1fr; gap: 20px; }
   .artist-row { grid-template-columns: 30px 1fr 40px auto; }
   .artist-row p { grid-column: 2; margin-top: 4px; }
@@ -633,7 +636,7 @@ footer a:hover { color: var(--accent); }
 }
 
 @media (max-width: 520px) {
-  .piercing-grid { grid-template-columns: 1fr; gap: 40px; }
+  .piercing-grid { grid-template-columns: minmax(0, 320px); gap: 40px; }
 }
 
 /* Hide seal */
