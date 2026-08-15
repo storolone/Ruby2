@@ -76,7 +76,7 @@ export default function Home() {
           <div className="hero-topline">
           </div>
           <div className="hero-copy fade-in-section">
-            <h1>Hikâyeni<br /><em>tarzına</em><br />yaşat.</h1>
+            <h1>Hikâyeni<br /><em>tarzına</em><br />yansıt.</h1>
             <p className="hero-lead">Özgün tasarım. Zamansız işçilik. Sadece sana ait temiz ve ince bir iz.</p>
             <div className="hero-actions">
               <a className="primary-action" href="#booking">Randevu al <span>→</span></a>
