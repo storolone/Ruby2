@@ -670,7 +670,6 @@ footer > div:not(.footer-logo):not(.footer-bottom) {
   width: 100%;
   height: 280px;
   border: 1px solid var(--border);
-  filter: grayscale(1) contrast(1.08);
 }
 .footer-address {
   max-width: 620px;
