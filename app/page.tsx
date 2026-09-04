@@ -301,7 +301,7 @@ export default function Home() {
           <p>İLETİŞİM</p>
           <a href="https://wa.me/905363322002" target="_blank" rel="noreferrer">Wp: 0536 332 20 02</a>
           <a href="tel:+902662432001">Sabit Hat: 0266 243 20 01</a>
-          <a href="https://instagram.com/rubytattoo" target="_blank" rel="noreferrer">@rubytattoo</a>
+          <a href="https://www.instagram.com/ruby_tattoostudio/" target="_blank" rel="noreferrer">@ruby_tattoostudio</a>
         </div>
         <div className="footer-bottom">
           <span>© 2026 RUBY TATTOO STUDIO</span>
