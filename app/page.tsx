@@ -81,7 +81,7 @@ export default function Home() {
       `Fikrim: ${idea || "Henüz belirtmedim."}`,
     ].join("\n");
 
-    window.open(`https://wa.me/905363322002?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/905363312002?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   useEffect(() => {
@@ -311,8 +311,9 @@ export default function Home() {
 
       <footer className="fade-in-section">
         <div className="footer-logo">
-          <strong>RUBY</strong>
-          <span>TATTOO STUDIO · 2008</span>
+          <span className="footer-logo-frame">
+            <img src="/ruby-studio-logo.png" alt="Ruby Tattoo Studio" />
+          </span>
         </div>
         <div className="footer-location">
           <p>KONUM</p>
@@ -334,7 +335,7 @@ export default function Home() {
         </div>
         <div>
           <p>İLETİŞİM</p>
-          <a href="https://wa.me/905363322002" target="_blank" rel="noreferrer">Wp: 0536 332 20 02</a>
+          <a href="https://wa.me/905363312002" target="_blank" rel="noreferrer">Wp: 0536 331 20 02</a>
           <a href="tel:+902662432001">Sabit Hat: 0266 243 20 01</a>
           <a href="https://www.instagram.com/ruby_tattoostudio/" target="_blank" rel="noreferrer">@ruby_tattoostudio</a>
         </div>

@@ -646,20 +646,25 @@ footer {
 }
 .footer-logo {
   grid-column: 1 / -1;
-  padding: 18px 0 52px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 72px;
 }
-.footer-logo strong {
+.footer-logo-frame {
+  position: relative;
   display: block;
-  font: 500 clamp(84px, 14vw, 180px)/0.78 Georgia, 'Times New Roman', serif;
-  letter-spacing: 0.08em;
+  width: min(720px, 88vw);
+  aspect-ratio: 918 / 962;
+  overflow: hidden;
 }
-.footer-logo span {
+.footer-logo img {
+  position: absolute;
+  top: -49.69%;
+  left: -8.28%;
   display: block;
-  font-size: 13px;
-  color: var(--text-muted);
-  letter-spacing: 0.18em;
-  margin-top: 24px;
+  width: 117.65%;
+  max-width: none;
+  height: auto;
 }
 footer > div:not(.footer-logo):not(.footer-bottom) {
   display: flex;
@@ -793,7 +798,8 @@ footer a:hover { color: var(--accent); }
   .booking { grid-template-columns: 1fr; }
   
   footer { grid-template-columns: 1fr; gap: 40px; }
-  .footer-logo { grid-column: 1 / -1; padding-bottom: 32px; }
+  .footer-logo { grid-column: 1 / -1; padding-bottom: 40px; }
+  .footer-logo-frame { width: min(88vw, 480px); }
   .footer-map { height: 240px; }
   .footer-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
