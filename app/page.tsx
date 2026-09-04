@@ -8,7 +8,7 @@ const artists = [
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı",
     portrait: "/artists/alper.jpeg",
-    imageCount: 64,
+    imageCount: 15,
     since: "2004'ten beri",
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School"],
     bio: [
@@ -24,7 +24,7 @@ const artists = [
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
     portrait: "/artists/fatih.jpeg",
-    imageCount: 32,
+    imageCount: 15,
     since: "Ruby Tattoo Studio",
     specialties: [],
     bio: [
@@ -33,8 +33,7 @@ const artists = [
   },
 ] as const;
 
-// Yeni fotoğraf eklemek için dosyayı public/alper veya public/fatih klasörüne
-// sıradaki numarayla koyun (ör. 65.jpg). Ardından ilgili imageCount değerini 1 artırın.
+// Portfolyoda gösterilecek çalışma sayısı sanatçıların imageCount alanından ayarlanır.
 const portfolios = Object.fromEntries(
   artists.map((artist) => [
     artist.id,
@@ -300,7 +299,8 @@ export default function Home() {
         </div>
         <div>
           <p>İLETİŞİM</p>
-          <a href="tel:+905555555555">+90 555 555 55 55</a>
+          <a href="https://wa.me/905363322002" target="_blank" rel="noreferrer">Wp: 0536 332 20 02</a>
+          <a href="tel:+902662432001">Sabit Hat: 0266 243 20 01</a>
           <a href="https://instagram.com/rubytattoo" target="_blank" rel="noreferrer">@rubytattoo</a>
         </div>
         <div className="footer-bottom">

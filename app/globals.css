@@ -641,25 +641,25 @@ footer {
   padding: 80px 5vw 40px;
   border-top: 1px solid var(--border);
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 5vw;
 }
 .footer-logo {
-  font-size: clamp(40px, 6vw, 80px);
-  font-weight: 400;
-  letter-spacing: -0.04em;
+  grid-column: 1 / -1;
+  padding: 18px 0 52px;
+  text-align: center;
 }
 .footer-logo strong {
   display: block;
-  font: 500 clamp(44px, 6vw, 82px)/0.9 Georgia, 'Times New Roman', serif;
+  font: 500 clamp(84px, 14vw, 180px)/0.78 Georgia, 'Times New Roman', serif;
   letter-spacing: 0.08em;
 }
 .footer-logo span {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  letter-spacing: 0.1em;
-  margin-top: 8px;
+  letter-spacing: 0.18em;
+  margin-top: 24px;
 }
 footer > div:not(.footer-logo):not(.footer-bottom) {
   display: flex;
@@ -783,7 +783,7 @@ footer a:hover { color: var(--accent); }
   .booking { grid-template-columns: 1fr; }
   
   footer { grid-template-columns: 1fr 1fr; gap: 40px; }
-  .footer-logo { grid-column: 1 / -1; }
+  .footer-logo { grid-column: 1 / -1; padding-bottom: 32px; }
   .footer-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
 
