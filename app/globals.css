@@ -641,7 +641,7 @@ footer {
   padding: 80px 5vw 40px;
   border-top: 1px solid var(--border);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.75fr);
   gap: 5vw;
 }
 .footer-logo {
@@ -666,6 +666,17 @@ footer > div:not(.footer-logo):not(.footer-bottom) {
   flex-direction: column;
   gap: 12px;
 }
+.footer-map {
+  width: 100%;
+  height: 280px;
+  border: 1px solid var(--border);
+  filter: grayscale(1) contrast(1.08);
+}
+.footer-address {
+  max-width: 620px;
+  line-height: 1.6;
+}
+.footer-address span { color: var(--accent); }
 footer p {
   font-size: 11px;
   font-weight: 500;
@@ -782,8 +793,9 @@ footer a:hover { color: var(--accent); }
   .faq-item button { padding: 20px 0; font-size: 16px; }
   .booking { grid-template-columns: 1fr; }
   
-  footer { grid-template-columns: 1fr 1fr; gap: 40px; }
+  footer { grid-template-columns: 1fr; gap: 40px; }
   .footer-logo { grid-column: 1 / -1; padding-bottom: 32px; }
+  .footer-map { height: 240px; }
   .footer-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
 

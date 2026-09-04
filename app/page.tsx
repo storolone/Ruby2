@@ -294,8 +294,23 @@ export default function Home() {
           <strong>RUBY</strong>
           <span>TATTOO STUDIO · 2008</span>
         </div>
-        <div>
-          <p>BALIKESİR, TÜRKİYE</p>
+        <div className="footer-location">
+          <p>KONUM</p>
+          <iframe
+            className="footer-map"
+            title="Ruby Tattoo Dövme Stüdyosu konumu"
+            src="https://www.google.com/maps?q=Ruby%20Tattoo%20D%C3%B6vme%20St%C3%BCdyosu%2C%20Eski%20Kuyumcular%2C%2013003%20Sokak%20No%3A4%2FC%2C%2010010%20Karesi%2FBal%C4%B1kesir&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <a
+            className="footer-address"
+            href="https://www.google.com/maps/search/?api=1&query=Ruby%20Tattoo%20D%C3%B6vme%20St%C3%BCdyosu%2C%20Eski%20Kuyumcular%2C%2013003%20Sokak%20No%3A4%2FC%2C%2010010%20Karesi%2FBal%C4%B1kesir"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Eski Kuyumcular, 13003 Sokak No:4/C, 10010 Karesi/Balıkesir <span>↗</span>
+          </a>
         </div>
         <div>
           <p>İLETİŞİM</p>
