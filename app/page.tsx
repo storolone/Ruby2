@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 const artists = [
   {
@@ -63,6 +63,26 @@ const faqs = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState(0);
+
+  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const fullName = String(formData.get("fullName") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+    const style = String(formData.get("style") ?? "").trim();
+    const idea = String(formData.get("idea") ?? "").trim();
+    const message = [
+      "Merhaba Ruby Tattoo Studio, randevu talebi oluşturmak istiyorum.",
+      "",
+      `Ad Soyad: ${fullName}`,
+      `Telefon: ${phone}`,
+      `İlgilendiğim stil: ${style}`,
+      `Fikrim: ${idea || "Henüz belirtmedim."}`,
+    ].join("\n");
+
+    window.open(`https://wa.me/905363322002?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
@@ -264,11 +284,11 @@ export default function Home() {
           <h2>Tarzına uygun <em>dövme için</em> randevu oluştur.</h2>
           <p>Formu doldur, ekibimiz 24 saat içinde sana ulaşsın.</p>
         </div>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>AD SOYAD<input type="text" placeholder="Adınız Soyadınız" required /></label>
-          <label>TELEFON<input type="tel" placeholder="05__ ___ __ __" required /></label>
+        <form onSubmit={handleBookingSubmit}>
+          <label>AD SOYAD<input type="text" name="fullName" autoComplete="name" placeholder="Adınız Soyadınız" required /></label>
+          <label>TELEFON<input type="tel" name="phone" autoComplete="tel" placeholder="05__ ___ __ __" required /></label>
           <label>İLGİLENDİĞİNİZ STİL
-            <select defaultValue="">
+            <select name="style" defaultValue="" required>
               <option value="" disabled>Bir stil seçin</option>
               <option>Fine line</option>
               <option>Blackwork</option>
@@ -283,9 +303,9 @@ export default function Home() {
               <option>Kararsızım</option>
             </select>
           </label>
-          <label>FİKRİNİZ<textarea placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
-          <button type="submit">Randevu talebi gönder <span>→</span></button>
-          <small>Göndererek kişisel verilerinizin randevu amacıyla işlenmesini kabul edersiniz.</small>
+          <label>FİKRİNİZ<textarea name="idea" placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
+          <button type="submit">WhatsApp’tan randevu talebi gönder <span>→</span></button>
+          <small>Bilgileriniz WhatsApp mesajına eklenir; mesajı kontrol edip siz gönderirsiniz.</small>
         </form>
       </section>
 
