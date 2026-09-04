@@ -2,25 +2,56 @@
 
 import { useEffect, useState } from "react";
 
-const works = [
-  { no: "01", title: "Fine line", meta: "İnce çizgi", image: "/works/1.jpg" },
-  { no: "02", title: "Blackwork", meta: "Özgün kompozisyon", image: "/works/2.jpg" },
-  { no: "03", title: "Realism", meta: "Gerçekçi detaylar", image: "/works/3.jpg" },
-  { no: "04", title: "Dotwork", meta: "Nokta sanatı", image: "/works/4.jpg" },
-  { no: "05", title: "Micro Realism", meta: "Küçük detaylar", image: "/works/5.jpg" },
-  { no: "06", title: "Traditional", meta: "Geleneksel", image: "/works/6.jpg" },
-  { no: "07", title: "Old School", meta: "Klasik dokunuş", image: "/works/7.jpg" },
-  { no: "08", title: "Minimalist", meta: "Sade & Zarif", image: "/works/8.jpg" },
-  { no: "09", title: "Color", meta: "Canlı renkler", image: "/works/9.jpg" },
-];
+const artists = [
+  {
+    id: "alper",
+    name: "Alper Ünal",
+    role: "Kurucu · Dövme Sanatçısı",
+    portrait: "/artists/alper.jpeg",
+    imageCount: 64,
+    since: "2004'ten beri",
+    specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School"],
+    bio: [
+      "1984 Ankara doğumluyum. Kariyerime sanırım 6–7 yaşlarında, çocukluk ayıcığıma çizdiğim dövmelerle başlamış olabilirim. Yıllar içinde el sanatlarına olan ilgim artarak devam etti ve çeşitlendi.",
+      "19 yaşımda üniversite eğitimim için geldiğim Balıkesir’de, elime geçen eski bir dövme makinesiyle bu meslekle gerçek anlamda tanıştım. Dövmenin kötü ve aşağı görüldüğü, Türkiye’de çok az kişinin profesyonel olarak bu işi yaptığı o yıllarda bu yeni dünya beni büyüledi. El sanatlarındaki detaycı yapım, bu alanda ilerlememe büyük katkı sağladı.",
+      "2004 yılında Kuşadası’nda profesyonel kariyerime başladım. Ardından Antalya bölgesinde, Alanya ve Side’de dövme sanatçısı olarak çalıştım.",
+      "2008 yılında Balıkesir’in ilk profesyonel dövme stüdyosu Ruby Tattoo’yu açtım. Daha önce çalıştığım yerlerdeki olumsuzluklardan uzak bir stüdyo oluşturma hayaline odaklandım ve yanımda yeni dövme sanatçıları yetiştirmeye karar verdim.",
+      "Yaptığı işte uzman, kişisel egodan uzak ve samimi; hem kendi aralarında hem de stüdyomuzun kapısından giren herkesle doğru ilişki kurabilen insanlardan oluşan bir ekip yaratmak temel ilkem oldu. Bugün Ruby Tattoo bünyesinde çok sevdiğim sanatımı aynı prensiplerle sürdürmeye devam ediyorum.",
+    ],
+  },
+  {
+    id: "fatih",
+    name: "Fatih Özgön",
+    role: "Dövme Sanatçısı",
+    portrait: "/artists/fatih.jpeg",
+    imageCount: 32,
+    since: "Ruby Tattoo Studio",
+    specialties: [],
+    bio: [
+      "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum. Lise çağıma geldiğim zaman kendi isteğim ile güzel sanatlar lisesine gitmek istedim ve sınavlarına girdim, daha sonra Balıkesir Kadriye Kemal Gürel Güzel Sanatlar Lisesini kazanıp kariyer basamaklarına akademik eğitimi de eklemiş oldum. 2008 yılında açılan Ruby Tattoo’da 2009 yılında çalışmaya başlayarak emin adımlarla profesyonel dövme sanatçısı olma yolculuğuma çıkmış oldum. Lise yıllarında başlayan bu serüvene Marmara Güzel Sanatlar Fakültesini kazandıktan sonra bir süreliğine İstanbul’da devam ettim, orada Türkiye’nin ilk profesyonel dövme stüdyolarından birinde bir süre çalıştıktan sonra oradan ayrılıp bir stüdyonun işletmesini devraldım. Bir zaman sonra tekrar Balıkesir’e dönerek profesyonel dövme sanatçısı olarak Ruby Tattoo bünyesinde sanatımı icra etmeye başladım. Uzmanlaştığım ve kendimi daha rahat hissettiğim alanlar ise Realism, Fullcolor, Microrealism, Watercolor ve Portrait gibi detaylı gölge oyunlarıyla dolu modelleri örnek gösterebilirim. Bu yolculukta öğrenmekten ve gelişmekten asla bıkmadığım, her çıkan yeni işte dövme yaptırmak için beni tercih eden herkese kattığım yeni bir hatıra veya hikâyeden sonra yüzlerinde gördüğüm memnuniyetten dolayı işimi ve icra ettiğim sanatı her geçen gün daha çok seviyorum.",
+    ],
+  },
+] as const;
+
+// Yeni fotoğraf eklemek için dosyayı public/alper veya public/fatih klasörüne
+// sıradaki numarayla koyun (ör. 65.jpg). Ardından ilgili imageCount değerini 1 artırın.
+const portfolios = Object.fromEntries(
+  artists.map((artist) => [
+    artist.id,
+    Array.from({ length: artist.imageCount }, (_, index) => ({
+      no: String(index + 1).padStart(2, "0"),
+      image: `/${artist.id}/${index + 1}.jpg`,
+    })),
+  ]),
+) as Record<(typeof artists)[number]["id"], { no: string; image: string }[]>;
 
 const piercings = [
-  { no: "01", title: "Helix", meta: "Renkli taş yerleşimi", image: "/piercing/1.jpg" },
-  { no: "02", title: "Stretched Lobe", meta: "Özgün kulak kompozisyonu", image: "/piercing/2.jpg" },
-  { no: "03", title: "Curated Ear", meta: "Altın detaylı seçki", image: "/piercing/3.jpg" },
-  { no: "04", title: "Navel", meta: "Zarif göbek piercingi", image: "/piercing/4.jpg" },
-  { no: "05", title: "Monroe", meta: "Minimal yüz piercingi", image: "/piercing/5.jpg" },
-  { no: "06", title: "Curated Ear", meta: "Katmanlı taş yerleşimi", image: "/piercing/6.jpg" },
+  { no: "01", title: "Conch", meta: "Kulak Piercingi → İç Kıkırdak", image: "/piercing/1.jpg" },
+  { no: "02", title: "Helix", meta: "Kulak Piercingi → Dış/Orta Kıkırdak", image: "/piercing/2.jpg" },
+  { no: "03", title: "Conch", meta: "Kulak Piercingi → İç Kıkırdak", image: "/piercing/3.jpg" },
+  { no: "04", title: "Microdermal", meta: "Yüzey Piercingi → Cilt Altı", image: "/piercing/4.jpg" },
+  { no: "05", title: "Medusa", meta: "Yüz Piercingi → Ağız ve Dudak", image: "/piercing/5.jpg" },
+  { no: "06", title: "Helix", meta: "Kulak Piercingi → Dış/Orta Kıkırdak", image: "/piercing/6.jpg" },
 ];
 
 const faqs = [
@@ -57,11 +88,10 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Ruby Tattoo Studio ana sayfa">
-          <strong>RUBY</strong>
-          <small>TATTOO STUDIO · 2008</small>
+          <img className="brand-logo" src="/ruby-studio-logo.png" alt="Ruby Tattoo Studio" />
         </a>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Ana menü">
-          <a href="#work" onClick={() => setMenuOpen(false)}>Çalışmalar</a>
+          <a href="#artists" onClick={() => setMenuOpen(false)}>Çalışmalar</a>
           <a href="#piercing" onClick={() => setMenuOpen(false)}>Piercing</a>
           <a href="#studio" onClick={() => setMenuOpen(false)}>Stüdyo</a>
           <a href="#artists" onClick={() => setMenuOpen(false)}>Sanatçılar</a>
@@ -80,7 +110,7 @@ export default function Home() {
             <p className="hero-lead">Özgün tasarım. Zamansız işçilik. Sadece sana ait temiz ve ince bir iz.</p>
             <div className="hero-actions">
               <a className="primary-action" href="#booking">Randevu al <span>→</span></a>
-              <a className="secondary-action" href="#work">Çalışmaları gör <span>↓</span></a>
+              <a className="secondary-action" href="#artists">Sanatçıları tanı <span>↓</span></a>
             </div>
           </div>
           <div className="hero-stats fade-in-section">
@@ -107,34 +137,70 @@ export default function Home() {
         <p className="section-label">01 — STÜDYO</p>
         <div>
           <h2>Dövme, yalnızca bir görüntü değil.</h2>
-          <p>Ruby Tattoo Studio, 2008’den beri kişisel hikâyeleri zamansız, ince ve modern tasarımlara dönüştürüyor. Her çizgi; fikrinize, teninize ve size özel.</p>
+          <p>Baıkesir'in ilk profesyonel dövme stüdyosu olma özelliğini taşıyan stüdyomuz 2008 yılından bu yana faaliyet göstermektedir. Uzun yıllardır aynı sanatçı kadrosuyla çalışan ve standartlarını açıldığı günden bu yana koruyan bir yapıya sahiptir. Farklı tarzlarda, alanında uzun yıllardır çalışan dövme sanatçılarımız sayesinde farklı beğenilere sahip dövme severlere hitap edebilecek geniş bir işçilik alanına sahiptir. Keyifli ve rahat çalışma alışkanlıklarını profesyonelleşirken kaybetmeyerek dövme yaptırmak için gelen misafirlerine de rahat bir ortam sağlamasıyla tanınmıştır.
+            Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız cafemiz "Ruby Coffeeshop"ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
+          </p>
           <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
         </div>
         <div aria-hidden="true" />
       </section>
 
-      <section className="works fade-in-section" id="work">
+      <section className="works artists-section" id="artists">
         <div className="section-head">
-          <p className="section-label">02 — SEÇİLİ İŞLER</p>
+          <p className="section-label">02 — SANATÇILAR</p>
           <div>
-            <h2>Portfolyo</h2>
+            <h2>Sanatçılarımız</h2>
+            <p className="section-intro">Her sanatçının hikâyesini ve seçili işlerini kendi profilinde keşfedin.</p>
           </div>
         </div>
-        <div className="work-grid">
-          {works.map((work) => (
-            <article className="work-card fade-in-section" key={work.no}>
-              <div className="work-art" style={{ backgroundImage: `url(${work.image})` }} />
-              <div className="work-info">
-                <div>
-                  <h3>{work.title}</h3>
-                  <p>{work.meta}</p>
+        <div className="portfolio-artist-list">
+          {artists.map((artist, index) => (
+            <details className="portfolio-artist artist-profile" key={artist.id}>
+              <summary>
+                <div className="artist-portrait">
+                  <img src={artist.portrait} alt={`${artist.name}, Ruby Tattoo dövme sanatçısı`} />
                 </div>
-                <span>→</span>
+                <div className="artist-card-copy">
+                  <span>0{index + 1} · {artist.since}</span>
+                  <h3>{artist.name}</h3>
+                  <p>{artist.role}</p>
+                  <div className="artist-card-action">
+                    Profili ve çalışmaları gör
+                    <span className="artist-card-toggle" aria-hidden="true" />
+                  </div>
+                </div>
+              </summary>
+              <div className="artist-profile-content">
+                <div className="artist-about">
+                  <p className="section-label">HAKKINDA</p>
+                  <div className="artist-bio">
+                    {artist.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  </div>
+                  {artist.specialties.length > 0 && (
+                    <div className="artist-specialties">
+                      <p className="section-label">ÇALIŞMAYI SEVDİĞİ ALANLAR</p>
+                      <div>{artist.specialties.map((specialty) => <span key={specialty}>{specialty}</span>)}</div>
+                    </div>
+                  )}
+                </div>
+                <div className="artist-work-heading" id={`${artist.id}-works`}>
+                  <p className="section-label">SEÇİLİ İŞLER</p>
+                  <h4>{artist.name} portfolyosu</h4>
+                  <span>{artist.imageCount} çalışma</span>
+                </div>
+                <div className="work-grid artist-inline-gallery">
+                  {portfolios[artist.id].map((work) => (
+                    <article className="work-card" key={`${artist.id}-${work.no}`}>
+                      <div className="work-art">
+                        <img src={work.image} alt={`${artist.name} dövme çalışması ${work.no}`} loading="lazy" />
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
-            </article>
+            </details>
           ))}
         </div>
-
       </section>
 
       <section className="piercing fade-in-section" id="piercing">
@@ -162,25 +228,6 @@ export default function Home() {
           ))}
         </div>
         <a className="outline-button" href="#booking">Piercing randevusu al →</a>
-      </section>
-
-      <section className="artists fade-in-section" id="artists">
-        <p className="section-label">04 — SANATÇILAR</p>
-        <div className="artist-intro">
-          <h2>Private dövme stüdyosu</h2>
-          <p>Fikriniz için doğru stil, doğru el ve doğru yaklaşım. Temiz, steril ve güvende hissedebileceğiniz bir deneyim için sanatçılarımızı tanıyın.</p>
-        </div>
-        <div className="artist-list">
-          {["Fine line & botanical", "Minimalism & geometric", "Blackwork & dotwork"].map((style, i) => (
-            <div className="artist-row fade-in-section" key={style}>
-              <span>0{i + 1}</span>
-              <h3>RUBY ARTIST {i + 1}</h3>
-              <p>{style}</p>
-              <div className="artist-photo-placeholder" />
-              <b>→</b>
-            </div>
-          ))}
-        </div>
       </section>
 
       <section className="quote fade-in-section">

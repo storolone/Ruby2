@@ -39,27 +39,25 @@ button, input, select, textarea { font: inherit; }
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   border-bottom: 1px solid var(--border);
-  position: absolute;
+  /* Sayfa aşağı inerken menü üstte kalır. */
+  position: sticky;
   z-index: 10;
   width: 100%;
   top: 0;
+  background: rgba(5, 5, 5, 0.9);
+  backdrop-filter: blur(12px);
 }
 .wordmark {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
-  width: max-content;
+  display: block;
+  width: 108px;
+  height: 72px;
 }
-.wordmark strong {
-  font: 500 24px/0.9 Georgia, 'Times New Roman', serif;
-  letter-spacing: 0.12em;
-}
-.wordmark small {
-  font: 500 7px/1 'Inter', sans-serif;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
-  white-space: nowrap;
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
 }
 .nav { display: flex; gap: 40px; }
 .nav a {
@@ -257,6 +255,13 @@ section {
   letter-spacing: -0.02em;
   margin: 0;
 }
+.section-intro {
+  max-width: 520px;
+  margin: 18px auto 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 320px));
@@ -268,9 +273,118 @@ section {
 .work-card:nth-child(even) { margin-top: 0; }
 .work-art {
   aspect-ratio: 3/4;
+  overflow: hidden;
   border-radius: 8px;
   background: #111111;
-  transition: 0.4s;
+}
+.work-art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.work-card:hover .work-art img { transform: scale(1.025); }
+.portfolio-artists {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: -38px 0 24px;
+}
+.artist-tab {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 12px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.artist-tab:hover, .artist-tab.active {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+.portfolio-caption {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  margin: 0 0 40px;
+}
+.portfolio-artist-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.portfolio-artist {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #0a0a0a;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+.portfolio-artist:hover, .portfolio-artist[open] {
+  border-color: var(--accent);
+  background: #101010;
+}
+.portfolio-artist summary {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(360px, 1.2fr);
+  min-height: 560px;
+  cursor: pointer;
+  list-style: none;
+}
+.portfolio-artist summary::-webkit-details-marker { display: none; }
+.artist-portrait { min-height: 560px; overflow: hidden; background: #111; }
+.artist-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 35%; transition: transform 0.6s ease; }
+.portfolio-artist:hover .artist-portrait img { transform: scale(1.02); }
+.artist-card-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(40px, 7vw, 100px); }
+.artist-card-copy > span,
+.artist-card-copy > p { color: var(--text-muted); }
+.artist-card-copy > span { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+.artist-card-copy h3 { font-size: clamp(52px, 7vw, 96px); font-weight: 400; line-height: 0.95; letter-spacing: -0.045em; margin: 32px 0 18px; }
+.artist-card-copy > p { font-size: 15px; margin: 0; }
+.artist-card-action { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 32px; border-top: 1px solid var(--border); color: var(--text); font-size: 13px; }
+.artist-card-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+.artist-card-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+.portfolio-artist summary:hover .artist-card-toggle { background: rgba(176, 18, 27, 0.12); }
+.portfolio-artist[open] .artist-card-toggle { transform: rotate(180deg); }
+.artist-profile-content { border-top: 1px solid var(--border); padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 72px) 72px; }
+.artist-about { display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 32px 64px; max-width: 1080px; margin: 0 auto 110px; }
+.artist-bio { font-size: clamp(17px, 1.6vw, 22px); line-height: 1.65; font-weight: 300; }
+.artist-bio p { margin: 0 0 1.35em; }
+.artist-specialties { grid-column: 2; margin-top: 18px; }
+.artist-specialties > div { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.artist-specialties span { border: 1px solid var(--border); border-radius: 999px; color: #d5d5d5; font-size: 12px; padding: 10px 14px; }
+.artist-work-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; max-width: 1080px; margin: 0 auto 42px; }
+.artist-work-heading .section-label { grid-column: 1 / -1; margin-bottom: 16px; }
+.artist-work-heading h4 { font-size: clamp(34px, 4vw, 56px); font-weight: 400; letter-spacing: -0.03em; margin: 0; }
+.artist-work-heading > span { color: var(--text-muted); font-size: 12px; padding-bottom: 8px; }
+.portfolio-artist .artist-inline-gallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 16px;
+  padding: 0;
 }
 .work-info {
   display: flex;
@@ -345,23 +459,27 @@ section {
   display: grid;
   grid-template-columns: 50px 1fr 1fr 50px auto;
   align-items: center;
+  width: 100%;
   padding: 30px 0;
   border-top: 1px solid var(--border);
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
 }
-.artist-photo-placeholder {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--border);
-  background-size: cover;
-  background-position: center;
-}
-.artist-row:last-child { border-bottom: 1px solid var(--border); }
+.artist-entry:last-child .artist-row { border-bottom: 1px solid var(--border); }
 .artist-row span { font-size: 12px; color: var(--text-muted); }
 .artist-row h3 { font-size: 24px; font-weight: 400; margin: 0; }
 .artist-row p { color: var(--text-muted); font-size: 14px; margin: 0; }
 .artist-row b { font-weight: 400; font-size: 24px; color: var(--text-muted); transition: 0.2s; }
 .artist-row:hover b { color: var(--accent); transform: translate(2px, -2px); }
+.artist-inline-gallery {
+  padding: 36px 0 56px;
+  max-width: 1080px;
+}
 
 /* Quote */
 .quote {
@@ -621,8 +739,7 @@ footer a:hover { color: var(--accent); }
   .nav a { font-size: 32px; font-weight: 400; color: var(--text); }
   .header-cta { display: none; }
   .menu-toggle { display: block; }
-  .wordmark strong { font-size: 21px; }
-  .wordmark small { font-size: 6px; }
+  .wordmark { width: 78px; height: 52px; }
   
   .hero { padding: 120px 20px 60px; }
   .hero-left { width: 100%; }
@@ -634,6 +751,20 @@ footer a:hover { color: var(--accent); }
   .manifesto { grid-template-columns: 1fr; gap: 30px; }
   .section-head { grid-template-columns: 1fr; gap: 20px; text-align: left; }
   .section-head > div { grid-column: 1; text-align: left; }
+  .section-intro { margin-left: 0; }
+  .portfolio-artists { justify-content: flex-start; margin: 0 0 18px; }
+  .portfolio-caption { text-align: left; margin-bottom: 28px; }
+  .portfolio-artist-list { grid-template-columns: 1fr; }
+  .portfolio-artist summary { grid-template-columns: 1fr; min-height: 0; }
+  .artist-portrait { min-height: 0; aspect-ratio: 4 / 5; }
+  .artist-card-copy { min-height: 330px; padding: 32px 24px; }
+  .artist-card-copy h3 { font-size: 54px; }
+  .artist-profile-content { padding: 54px 20px 28px; }
+  .artist-about { grid-template-columns: 1fr; gap: 28px; margin-bottom: 72px; }
+  .artist-specialties { grid-column: 1; }
+  .artist-work-heading { grid-template-columns: 1fr; }
+  .artist-work-heading > span { padding: 10px 0 0; }
+  .portfolio-artist .artist-inline-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
   .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
   .work-card:nth-child(even) { margin-top: 0; }
   .work-info { flex-direction: column; gap: 4px; margin-top: 12px; padding-top: 12px; }
@@ -643,9 +774,9 @@ footer a:hover { color: var(--accent); }
   .piercing-head > div p { margin: 12px 0 0; }
   .piercing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
   .artist-intro { grid-template-columns: 1fr; gap: 20px; }
-  .artist-row { grid-template-columns: 30px 1fr 40px auto; }
+  .artist-row { grid-template-columns: 30px 1fr auto; }
   .artist-row p { grid-column: 2; margin-top: 4px; }
-  .artist-photo-placeholder { display: none; } /* On mobile, hide or adjust placeholder as needed. I'm choosing to hide it for simplicity, or we can keep it. I will keep it in grid column 3. Let's just adjust the grid. */
+  .artist-inline-gallery { padding: 24px 0 40px; }
   
   .faq { grid-template-columns: 1fr; gap: 40px; }
   .faq-item button { padding: 20px 0; font-size: 16px; }
@@ -662,6 +793,10 @@ footer a:hover { color: var(--accent); }
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 10px;
   }
+  .portfolio-artist-list { gap: 14px; }
+  .artist-card-copy { min-height: 300px; padding: 28px 20px; }
+  .artist-card-copy h3 { font-size: 46px; }
+  .portfolio-artist .artist-inline-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Hide seal */
