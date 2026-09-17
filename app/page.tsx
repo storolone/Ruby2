@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 
 const artists = [
   {
     id: "alper",
     name: "Alper Ünal",
-    role: "Kurucu · Dövme Sanatçısı",
+    role: "Kurucu · Dövme Sanatçısı · Piercer",
     portrait: "/artists/alper.jpeg",
     imageCount: 15,
     since: "2004'ten beri",
-    specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School"],
+    specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
       "1984 Ankara doğumluyum. Kariyerime sanırım 6–7 yaşlarında, çocukluk ayıcığıma çizdiğim dövmelerle başlamış olabilirim. Yıllar içinde el sanatlarına olan ilgim artarak devam etti ve çeşitlendi.",
       "19 yaşımda üniversite eğitimim için geldiğim Balıkesir’de, elime geçen eski bir dövme makinesiyle bu meslekle gerçek anlamda tanıştım. Dövmenin kötü ve aşağı görüldüğü, Türkiye’de çok az kişinin profesyonel olarak bu işi yaptığı o yıllarda bu yeni dünya beni büyüledi. El sanatlarındaki detaycı yapım, bu alanda ilerlememe büyük katkı sağladı.",
@@ -25,10 +25,15 @@ const artists = [
     role: "Dövme Sanatçısı",
     portrait: "/artists/fatih.jpeg",
     imageCount: 15,
-    since: "Ruby Tattoo Studio",
+    since: "2009’dan beri",
     specialties: [],
     bio: [
-      "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum. Lise çağıma geldiğim zaman kendi isteğim ile güzel sanatlar lisesine gitmek istedim ve sınavlarına girdim, daha sonra Balıkesir Kadriye Kemal Gürel Güzel Sanatlar Lisesini kazanıp kariyer basamaklarına akademik eğitimi de eklemiş oldum. 2008 yılında açılan Ruby Tattoo’da 2009 yılında çalışmaya başlayarak emin adımlarla profesyonel dövme sanatçısı olma yolculuğuma çıkmış oldum. Lise yıllarında başlayan bu serüvene Marmara Güzel Sanatlar Fakültesini kazandıktan sonra bir süreliğine İstanbul’da devam ettim, orada Türkiye’nin ilk profesyonel dövme stüdyolarından birinde bir süre çalıştıktan sonra oradan ayrılıp bir stüdyonun işletmesini devraldım. Bir zaman sonra tekrar Balıkesir’e dönerek profesyonel dövme sanatçısı olarak Ruby Tattoo bünyesinde sanatımı icra etmeye başladım. Uzmanlaştığım ve kendimi daha rahat hissettiğim alanlar ise Realism, Fullcolor, Microrealism, Watercolor ve Portrait gibi detaylı gölge oyunlarıyla dolu modelleri örnek gösterebilirim. Bu yolculukta öğrenmekten ve gelişmekten asla bıkmadığım, her çıkan yeni işte dövme yaptırmak için beni tercih eden herkese kattığım yeni bir hatıra veya hikâyeden sonra yüzlerinde gördüğüm memnuniyetten dolayı işimi ve icra ettiğim sanatı her geçen gün daha çok seviyorum.",
+      "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum.",
+      "Lise çağıma geldiğim zaman kendi isteğim ile güzel sanatlar lisesine gitmek istedim ve sınavlarına girdim, daha sonra Balıkesir Kadriye Kemal Gürel Güzel Sanatlar Lisesini kazanıp kariyer basamaklarına akademik eğitimi de eklemiş oldum.",
+      "2008 yılında açılan Ruby Tattoo’da 2009 yılında çalışmaya başlayarak emin adımlarla profesyonel dövme sanatçısı olma yolculuğuma çıkmış oldum. Lise yıllarında başlayan bu serüvene Marmara Güzel Sanatlar Fakültesini kazandıktan sonra bir süreliğine İstanbul’da devam ettim, orada Türkiye’nin ilk profesyonel dövme stüdyolarından birinde bir süre çalıştıktan sonra oradan ayrılıp bir stüdyonun işletmesini devraldım.",
+      "Bir zaman sonra tekrar Balıkesir’e dönerek profesyonel dövme sanatçısı olarak Ruby Tattoo bünyesinde sanatımı icra etmeye başladım.",
+      "Uzmanlaştığım ve kendimi daha rahat hissettiğim alanlar ise Realism, Fullcolor, Microrealism, Watercolor ve Portrait gibi detaylı gölge oyunlarıyla dolu modelleri örnek gösterebilirim.",
+      "Bu yolculukta öğrenmekten ve gelişmekten asla bıkmadığım, her çıkan yeni işte dövme yaptırmak için beni tercih eden herkese kattığım yeni bir hatıra veya hikâyeden sonra yüzlerinde gördüğüm memnuniyetten dolayı işimi ve icra ettiğim sanatı her geçen gün daha çok seviyorum.",
     ],
   },
 ] as const;
@@ -53,6 +58,23 @@ const piercings = [
   { no: "06", title: "Helix", meta: "Kulak Piercingi → Dış/Orta Kıkırdak", image: "/piercing/6.jpg" },
 ];
 
+type VenuePhoto = { src: string; alt: string };
+// Yeni çekimleri public/studio ve public/cafe klasörlerine ekleyip bu listeleri güncelleyin.
+const studioPhotos: VenuePhoto[] = [{ src: "/hero-image.jpg", alt: "Ruby Tattoo stüdyosunun iç mekânı ve piercing koleksiyonu" }];
+const cafePhotos: VenuePhoto[] = [];
+
+function VenueGallery({ images, label }: { images: VenuePhoto[]; label: string }) {
+  if (!images.length) return <p className="gallery-note">{label} fotoğrafları yakında burada.</p>;
+  return <div className="venue-gallery">
+    {images.map((photo, index) => <figure key={photo.src}>
+      <a href={photo.src} target="_blank" rel="noreferrer" aria-label={`${label} fotoğrafı ${index + 1}, tam boy aç`}>
+        <img src={photo.src} alt={photo.alt} loading="lazy" />
+      </a>
+      <figcaption>{String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")} · {label}</figcaption>
+    </figure>)}
+  </div>;
+}
+
 const faqs = [
   ["Randevu süreci nasıl işliyor?", "Formu doldurduktan sonra ekibimiz 24 saat içinde size ulaşır. Tasarım fikri, ölçü, bölge ve uygun sanatçı birlikte netleştirilir."],
   ["Fiyatlandırma nasıl yapılıyor?", "Her çalışma; boyut, detay, yerleşim ve seans süresine göre ayrı fiyatlandırılır. Net teklif ücretsiz ön görüşmeden sonra paylaşılır."],
@@ -61,34 +83,62 @@ const faqs = [
 ];
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [reference, setReference] = useState<File | null>(null);
+  const [referencePreview, setReferencePreview] = useState("");
+  const [fileError, setFileError] = useState("");
+  const [bookingStatus, setBookingStatus] = useState("");
+
+  useEffect(() => () => {
+    if (referencePreview) URL.revokeObjectURL(referencePreview);
+  }, [referencePreview]);
+
+  const handleReferenceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setFileError("");
+    setBookingStatus("");
+    setReference(null);
+    setReferencePreview("");
+    if (!file) return;
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 10 * 1024 * 1024) {
+      setFileError("Lütfen en fazla 10 MB boyutunda JPG, PNG veya WebP fotoğraf seçin.");
+      event.target.value = "";
+      return;
+    }
+    setReference(file);
+    setReferencePreview(URL.createObjectURL(file));
+  };
   const [activeFaq, setActiveFaq] = useState(0);
 
-  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const fullName = String(formData.get("fullName") ?? "").trim();
     const phone = String(formData.get("phone") ?? "").trim();
-    const style = String(formData.get("style") ?? "").trim();
     const idea = String(formData.get("idea") ?? "").trim();
     const message = [
       "Merhaba Ruby Tattoo Studio, randevu talebi oluşturmak istiyorum.",
       "",
       `Ad Soyad: ${fullName}`,
       `Telefon: ${phone}`,
-      `İlgilendiğim stil: ${style}`,
+      ...(reference ? [`Dövme referansım: ${reference.name}`] : []),
       `Fikrim: ${idea || "Henüz belirtmedim."}`,
     ].join("\n");
 
+    if (reference && navigator.canShare?.({ files: [reference] })) {
+      try {
+        await navigator.share({ files: [reference], text: message, title: "Ruby Tattoo · Dövme randevusu" });
+        setBookingStatus("Paylaşım ekranı kapandı. Randevu talebinizin Ruby Tattoo’ya gönderildiğini seçtiğiniz uygulamadan kontrol edin.");
+        return;
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+      }
+    }
+    setBookingStatus(reference
+      ? "WhatsApp’ta mesajınızı gönderirken seçtiğiniz fotoğrafı ataç / + düğmesiyle ayrıca ekleyin. Fotoğraf otomatik aktarılmadı."
+      : "WhatsApp’ta açılan mesajı kontrol edip gönderin.");
     window.open(`https://wa.me/905363312002?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
-
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -109,15 +159,16 @@ export default function Home() {
         <a className="wordmark" href="#top" aria-label="Ruby Tattoo Studio ana sayfa">
           <img className="brand-logo" src="/ruby-studio-logo.png" alt="Ruby Tattoo Studio" />
         </a>
-        <nav className={menuOpen ? "nav open" : "nav"} aria-label="Ana menü">
-          <a href="#artists" onClick={() => setMenuOpen(false)}>Çalışmalar</a>
-          <a href="#piercing" onClick={() => setMenuOpen(false)}>Piercing</a>
-          <a href="#studio" onClick={() => setMenuOpen(false)}>Stüdyo</a>
-          <a href="#artists" onClick={() => setMenuOpen(false)}>Sanatçılar</a>
-          <a href="#faq" onClick={() => setMenuOpen(false)}>SSS</a>
+        <nav className="nav" aria-label="Ana menü">
+          <a href="#studio">Stüdyo</a>
+          <a href="#artists">Sanatçılar</a>
+          <a href="#piercing">Piercing</a>
+          <a href="#scalp">Saç simülasyonu</a>
+          <a href="#cafe">Kafe</a>
+          <a href="#about">Hakkımızda</a>
+          <a href="#faq">SSS</a>
         </nav>
         <a className="header-cta" href="#booking">Randevu al <span>→</span></a>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Menüyü aç veya kapat">{menuOpen ? "KAPAT" : "MENÜ"}</button>
       </header>
 
       <section className="hero" id="top">
@@ -125,43 +176,35 @@ export default function Home() {
           <div className="hero-topline">
           </div>
           <div className="hero-copy fade-in-section">
-            <h1>Hikâyeni<br /><em>tarzına</em><br />yansıt.</h1>
-            <p className="hero-lead">Özgün tasarım. Zamansız işçilik. Sadece sana ait temiz ve ince bir iz.</p>
+            <h1>Ruby <em>Tattoo</em></h1>
+            <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
             <div className="hero-actions">
               <a className="primary-action" href="#booking">Randevu al <span>→</span></a>
               <a className="secondary-action" href="#artists">Sanatçıları tanı <span>↓</span></a>
             </div>
           </div>
-          <div className="hero-stats fade-in-section">
-            <div>
-              <strong>15+</strong>
-              <span>Yıl deneyim</span>
-            </div>
-            <div>
-              <strong>10+</strong>
-              <span>Uzmanlık alanı</span>
-            </div>
-            <div>
-              <strong>∞</strong>
-              <span>Özgün tasarım</span>
-            </div>
-          </div>
+          <ul className="hero-stats fade-in-section" aria-label="Ruby Tattoo hizmetleri">
+            <li><strong>20+</strong><span>Yıl deneyim</span></li>
+            <li>Alanında uzmanlaşmış dövme sanatçıları</li>
+            <li>Kişiye özel tasarım</li>
+            <li>Profesyonel piercer kadrosu</li>
+            <li>Lazer dövme silme</li>
+            <li>Aksesuar</li>
+            <li>Yüksek sayıda piercing modeli</li>
+            <li>Ruby Coffeeshop</li>
+          </ul>
         </div>
         <div className="hero-right">
           <div className="hero-image fade-in-section" />
         </div>
       </section>
 
-      <section className="manifesto fade-in-section" id="studio">
-        <p className="section-label">01 — STÜDYO</p>
-        <div>
-          <h2>Dövme, yalnızca bir görüntü değil.</h2>
-          <p>Baıkesir'in ilk profesyonel dövme stüdyosu olma özelliğini taşıyan stüdyomuz 2008 yılından bu yana faaliyet göstermektedir. Uzun yıllardır aynı sanatçı kadrosuyla çalışan ve standartlarını açıldığı günden bu yana koruyan bir yapıya sahiptir. Farklı tarzlarda, alanında uzun yıllardır çalışan dövme sanatçılarımız sayesinde farklı beğenilere sahip dövme severlere hitap edebilecek geniş bir işçilik alanına sahiptir. Keyifli ve rahat çalışma alışkanlıklarını profesyonelleşirken kaybetmeyerek dövme yaptırmak için gelen misafirlerine de rahat bir ortam sağlamasıyla tanınmıştır.
-            Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız cafemiz "Ruby Coffeeshop"ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
-          </p>
-          <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
+      <section className="venue-section fade-in-section" id="studio">
+        <div className="section-head">
+          <p className="section-label">01 — STÜDYO</p>
+          <div><h2>Stüdyomuz</h2><p className="section-intro">Ruby Tattoo’dan kareler.</p></div>
         </div>
-        <div aria-hidden="true" />
+        <VenueGallery images={studioPhotos} label="Stüdyo" />
       </section>
 
       <section className="works artists-section" id="artists">
@@ -246,22 +289,29 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <a className="outline-button" href="#booking">Piercing randevusu al →</a>
+        <p className="walk-in-note">Piercing için randevu gerekmiyor. Stüdyomuza doğrudan gelebilirsiniz.</p>
       </section>
 
-      <section className="quote fade-in-section">
-        <blockquote>Tasarımdan uygulamaya kadar kendimi çok güvende hissettim. Sonuç, hayal ettiğimden daha zarif ve tamamen bana ait.</blockquote>
-        <p>— STÜDYO MİSAFİRİ · BALIKESİR</p>
-        <div className="quote-nav">
-          <span>01 / 03</span>
-          <button aria-label="Önceki yorum">←</button>
-          <button aria-label="Sonraki yorum">→</button>
+      <section className="service-section fade-in-section" id="scalp">
+        <p className="section-label">04 — SAÇ SİMÜLASYONU</p>
+        <div>
+          <h2>Saç simülasyonu</h2>
+          <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
+          <a className="text-link" href="https://wa.me/905363312002?text=Merhaba%2C%20sa%C3%A7%20sim%C3%BClasyonu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer">Bilgi al <span>→</span></a>
         </div>
+      </section>
+
+      <section className="venue-section cafe-section fade-in-section" id="cafe">
+        <div className="section-head">
+          <p className="section-label">05 — KAFE</p>
+          <div><h2>Ruby Coffeeshop</h2><p className="section-intro">Stüdyomuzun hemen karşısında bir kahve molası.</p></div>
+        </div>
+        <VenueGallery images={cafePhotos} label="Ruby Coffeeshop" />
       </section>
 
       <section className="faq fade-in-section" id="faq">
         <div>
-          <p className="section-label">05 — MERAK EDİLENLER</p>
+          <p className="section-label">06 — MERAK EDİLENLER</p>
           <h2>Sormadan önce.</h2>
         </div>
         <div className="faq-list">
@@ -280,33 +330,47 @@ export default function Home() {
 
       <section className="booking fade-in-section" id="booking">
         <div className="booking-title">
-          <p className="section-label">06 — RANDEVU</p>
+          <p className="section-label">07 — RANDEVU</p>
           <h2>Tarzına uygun <em>dövme için</em> randevu oluştur.</h2>
           <p>Formu doldur, ekibimiz 24 saat içinde sana ulaşsın.</p>
         </div>
         <form onSubmit={handleBookingSubmit}>
           <label>AD SOYAD<input type="text" name="fullName" autoComplete="name" placeholder="Adınız Soyadınız" required /></label>
           <label>TELEFON<input type="tel" name="phone" autoComplete="tel" placeholder="05__ ___ __ __" required /></label>
-          <label>İLGİLENDİĞİNİZ STİL
-            <select name="style" defaultValue="" required>
-              <option value="" disabled>Bir stil seçin</option>
-              <option>Fine line</option>
-              <option>Blackwork</option>
-              <option>Realism</option>
-              <option>Dotwork</option>
-              <option>Micro Realism</option>
-              <option>Traditional</option>
-              <option>Old School</option>
-              <option>Minimalist</option>
-              <option>Color</option>
-              <option>Piercing</option>
-              <option>Kararsızım</option>
-            </select>
+          <label htmlFor="tattoo-reference">YAPTIRMAK İSTEDİĞİNİZ DÖVME
+            <input id="tattoo-reference" type="file" name="reference" accept="image/jpeg,image/png,image/webp" onChange={handleReferenceChange} aria-describedby="reference-help reference-error" />
           </label>
+          <small id="reference-help">İsteğe bağlı · JPG, PNG veya WebP · En fazla 10 MB. Fotoğrafınız bu siteye kaydedilmez. Telefonunuz destekliyorsa paylaşım ekranında WhatsApp’ı ve Ruby Tattoo’yu (0536 331 20 02) seçin; diğer cihazlarda fotoğrafı WhatsApp sohbetine ayrıca ekleyin.</small>
+          <p id="reference-error" className="form-error" role="alert">{fileError}</p>
+          {reference && <div className="reference-preview">
+            {referencePreview && <img src={referencePreview} alt="Seçtiğiniz dövme referansı" />}
+            <span>{reference.name}</span>
+            <button type="button" onClick={() => {
+              setReference(null);
+              setReferencePreview("");
+              setBookingStatus("");
+              const input = document.getElementById("tattoo-reference") as HTMLInputElement | null;
+              if (input) input.value = "";
+            }}>Fotoğrafı kaldır</button>
+          </div>}
           <label>FİKRİNİZ<textarea name="idea" placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
-          <button type="submit">WhatsApp’tan randevu talebi gönder <span>→</span></button>
-          <small>Bilgileriniz WhatsApp mesajına eklenir; mesajı kontrol edip siz gönderirsiniz.</small>
+          <button type="submit">{reference ? "Fotoğrafla randevu talebini paylaş" : "WhatsApp’tan randevu talebi gönder"} <span>→</span></button>
+          <small>Randevu talebi, mesajı Ruby Tattoo’ya gönderdiğinizde iletilir.</small>
+          <p className="booking-status" role="status">{bookingStatus}</p>
         </form>
+      </section>
+
+      <section className="manifesto fade-in-section" id="about">
+        <p className="section-label">08 — HAKKIMIZDA</p>
+        <div>
+          <h2>Hakkımızda</h2>
+          <p>Balıkesir’in ilk profesyonel dövme stüdyosu olma özelliğini taşıyan stüdyomuz 2008 yılından bu yana faaliyet göstermektedir. Uzun yıllardır aynı sanatçı kadrosuyla çalışan ve standartlarını açıldığı günden bu yana koruyan bir yapıya sahiptir. Farklı tarzlarda, alanında uzun yıllardır çalışan dövme sanatçılarımız sayesinde farklı beğenilere sahip dövme severlere hitap edebilecek geniş bir işçilik alanına sahiptir. Keyifli ve rahat çalışma alışkanlıklarını profesyonelleşirken kaybetmeyerek dövme yaptırmak için gelen misafirlerine de rahat bir ortam sağlamasıyla tanınmıştır.
+          </p>
+          <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
+          </p>
+          <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
+        </div>
+        <div aria-hidden="true" />
       </section>
 
       <footer className="fade-in-section">
