@@ -10,7 +10,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--bg);
@@ -880,16 +880,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   html { scroll-padding-top: 180px; }
 }
 @media (max-width: 800px) {
-  .site-header { padding: 8px 20px 10px; }
   .nav { position: static; inset: auto; display: flex; flex-direction: row; flex-wrap: nowrap; background: transparent; padding: 0; gap: 20px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
   .nav a { font-size: 14px; font-weight: 500; flex: 0 0 auto; }
-  .header-cta { display: block; padding: 12px 16px; }
-  .hero { padding: 64px 20px 48px; min-height: calc(100svh - 126px); }
-  .hero-copy h1 { font-size: clamp(48px, 10vw, 80px); }
-  .hero-actions { flex-wrap: wrap; }
-  .primary-action, .secondary-action { padding: 16px 20px; font-size: 14px; }
-  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 40px; padding: 0; }
-  .hero-stats li { min-height: 96px; margin-right: 12px; padding: 18px 8px 18px 0; font-size: 14px; }
+  html { scroll-padding-top: 116px; }
+  .site-header { padding: 6px 20px; gap: 0 12px; }
+  .wordmark { width: 66px; height: 44px; }
+  .header-cta { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; font-size: 13px; }
+  .nav { gap: 20px; }
+  .nav a { font-size: 13px; }
+  /* Keep the introduction and service overview on separate visual planes. */
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr); padding: 0; min-height: 0; }
+  .hero-left { display: contents; }
+  .hero-copy { grid-area: 1 / 1; position: relative; z-index: 2; padding: 56px 24px 48px; }
+  .hero-copy h1 { max-width: 10ch; font-size: clamp(42px, 12vw, 64px); line-height: 1.08; margin-bottom: 24px; }
+  .hero-lead { max-width: 27ch; margin: 0 0 32px; font-size: 16px; line-height: 1.7; color: #d5d5d5; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  .hero-actions a { display: inline-flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 48px; font-size: 13px; }
+  .hero-actions .primary-action { padding: 14px 20px; }
+  .hero-actions .secondary-action { padding: 12px 0; border: 0; border-radius: 0; color: #dedede; }
+  .hero-right { grid-area: 1 / 1; position: relative; inset: auto; align-self: stretch; height: 100%; min-width: 0; }
+  .hero-image { background-position: 60% center; }
+  .hero-image::after { background: linear-gradient(90deg, rgba(5,5,5,.85), rgba(5,5,5,.5)), linear-gradient(0deg, #080808, transparent 60%); }
+  .hero-stats { grid-area: 2 / 1; position: relative; z-index: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; margin: 0; padding: 28px 24px 40px; border-top: 0; background: #080808; }
+  .hero-stats li { min-width: 0; min-height: 88px; margin: 0; padding: 20px 0; font-size: 13px; line-height: 1.65; color: #bcbcbc; border-bottom-color: rgba(255,255,255,.09); }
+  .hero-stats li:nth-last-child(-n+2) { border-bottom: 0; }
+  .hero-stats strong { font-size: 32px; }
+  .hero-stats span { margin-top: 6px; font-size: 12px; }
   .portfolio-artist summary { grid-template-columns: 1fr; }
   .artist-card-copy { min-height: 300px; padding: 28px 24px; }
   .artist-card-copy h3 { font-size: clamp(40px, 10vw, 64px); }

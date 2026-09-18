@@ -26,7 +26,7 @@ const artists = [
     portrait: "/artists/fatih.jpeg",
     imageCount: 15,
     since: "2009’dan beri",
-    specialties: [],
+    specialties: ["Realism", "Fullcolor", "Microrealism", "Watercolor", "Portrait"],
     bio: [
       "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum.",
       "Lise çağıma geldiğim zaman kendi isteğim ile güzel sanatlar lisesine gitmek istedim ve sınavlarına girdim, daha sonra Balıkesir Kadriye Kemal Gürel Güzel Sanatlar Lisesini kazanıp kariyer basamaklarına akademik eğitimi de eklemiş oldum.",
@@ -175,7 +175,7 @@ export default function Home() {
         <div className="hero-left">
           <div className="hero-topline">
           </div>
-          <div className="hero-copy fade-in-section">
+          <div className="hero-copy">
             <h1>Ruby <em>Tattoo</em></h1>
             <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
             <div className="hero-actions">
@@ -183,7 +183,7 @@ export default function Home() {
               <a className="secondary-action" href="#artists">Sanatçıları tanı <span>↓</span></a>
             </div>
           </div>
-          <ul className="hero-stats fade-in-section" aria-label="Ruby Tattoo hizmetleri">
+          <ul className="hero-stats" aria-label="Ruby Tattoo hizmetleri">
             <li><strong>20+</strong><span>Yıl deneyim</span></li>
             <li>Alanında uzmanlaşmış dövme sanatçıları</li>
             <li>Kişiye özel tasarım</li>
@@ -195,7 +195,7 @@ export default function Home() {
           </ul>
         </div>
         <div className="hero-right">
-          <div className="hero-image fade-in-section" />
+          <div className="hero-image" />
         </div>
       </section>
 
