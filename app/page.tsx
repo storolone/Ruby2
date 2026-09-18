@@ -153,22 +153,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const [experienceCount, setExperienceCount] = useState(20);
-
-  useEffect(() => {
-    let current = 0;
-    const target = 20;
-    const duration = 1200;
-    const intervalTime = Math.floor(duration / target);
-    setExperienceCount(0);
-    const timer = setInterval(() => {
-      current += 1;
-      setExperienceCount(current);
-      if (current >= target) clearInterval(timer);
-    }, intervalTime);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <main>
       <header className="site-header">
@@ -190,6 +174,7 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-left">
           <div className="hero-copy">
+            <p className="hero-experience">20+ yıl deneyim</p>
             <h1>Ruby <em>Tattoo</em></h1>
             <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
             <div className="hero-actions">
@@ -198,37 +183,25 @@ export default function Home() {
             </div>
           </div>
           <ul className="hero-stats" aria-label="Ruby Tattoo hizmetleri">
-            <li className="hero-stat-highlight" style={{ animationDelay: "0.1s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
-              <strong>{experienceCount}+</strong>
-              <span>Yıl deneyim</span>
-            </li>
-            <li style={{ animationDelay: "0.2s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Alanında uzmanlaşmış dövme sanatçıları</span>
             </li>
-            <li style={{ animationDelay: "0.3s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Kişiye özel tasarım</span>
             </li>
-            <li style={{ animationDelay: "0.4s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Profesyonel piercer kadrosu</span>
             </li>
-            <li style={{ animationDelay: "0.5s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Lazer dövme silme</span>
             </li>
-            <li style={{ animationDelay: "0.6s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Aksesuar</span>
             </li>
-            <li style={{ animationDelay: "0.7s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Yüksek sayıda piercing modeli</span>
             </li>
-            <li style={{ animationDelay: "0.8s" }}>
-              <span className="stat-fill-bar" aria-hidden="true" />
+            <li>
               <span>Ruby Coffeeshop</span>
             </li>
           </ul>

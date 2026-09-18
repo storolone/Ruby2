@@ -141,7 +141,7 @@ button, input, select, textarea { font: inherit; }
   margin: auto 0;
   padding: 24px 0 16px;
   max-width: 780px;
-  animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+
 }
 .hero-copy h1 {
   font-size: clamp(52px, 7vw, 104px);
@@ -211,131 +211,10 @@ button, input, select, textarea { font: inherit; }
   background: rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
 }
-.hero-stats {
-  width: 100%;
-  max-width: 1240px;
-  margin: 40px 0 0;
-  padding: 24px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  list-style: none;
-  justify-content: center;
-  align-items: stretch;
-}
-.hero-stats li {
-  position: relative;
-  overflow: hidden;
-  background: rgba(18, 18, 18, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 13px;
-  line-height: 1.45;
-  color: #bfbfbf;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: boxEntry 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.hero-stats li:hover {
-  border-color: rgba(212, 175, 55, 0.4);
-  background: rgba(28, 28, 28, 0.7);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.12);
-  color: #fff;
-}
-.stat-fill-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, transparent, var(--accent) 70%, rgba(255, 255, 255, 0.8));
-  border-radius: 2px;
-  animation: statFillAnimation 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-.hero-stats li::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.08) 50%, transparent 100%);
-  transform: translateX(-100%);
-  animation: statSweepAnimation 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  pointer-events: none;
-}
-.hero-stats li.hero-stat-highlight {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(18, 18, 18, 0.6) 100%);
-  border-color: rgba(212, 175, 55, 0.3);
-  color: var(--accent);
-  flex-direction: row;
-  gap: 8px;
-}
-.hero-stats li.hero-stat-highlight strong {
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.hero-stats li.hero-stat-highlight span:not(.stat-fill-bar) {
-  font-size: 12px;
-  color: #e5e5e5;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-}
-
-@keyframes boxEntry {
-  0% {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes statFillAnimation {
-  0% {
-    width: 0%;
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    width: 100%;
-    opacity: 0.85;
-  }
-}
-
-@keyframes statSweepAnimation {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes heroFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Plain service list, without cards or decorative animations. */
+.hero-experience { margin: 0 0 18px; color: var(--accent); font-size: 13px; letter-spacing: .06em; }
+.hero-stats { width: 100%; max-width: 1100px; margin: 36px 0 0; padding: 20px 0 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 28px; list-style: none; }
+.hero-stats li { margin: 0; padding: 0; font-size: 13px; line-height: 1.5; color: #bfbfbf; text-align: left; }
 
 /* Sections */
 section {
@@ -1020,7 +899,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .nav a { font-size: 13px; }
   .hero {
     min-height: 0;
-    padding: 40px 20px 24px;
+    padding: 28px 20px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1043,16 +922,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
     text-align: left;
   }
   .hero-copy h1 {
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(34px, 9vw, 44px);
     line-height: 1.08;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     text-align: left;
   }
   .hero-lead {
     font-size: 15px;
     line-height: 1.55;
     max-width: 300px;
-    margin: 0 0 24px;
+    margin: 0 0 18px;
     color: #cfcfcf;
     text-align: left;
   }
@@ -1084,41 +963,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
       linear-gradient(to right, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.85) 60%, rgba(5, 5, 5, 0.45) 100%),
       linear-gradient(to bottom, rgba(5, 5, 5, 0.85) 0%, rgba(5, 5, 5, 0.25) 45%, rgba(5, 5, 5, 0.85) 85%, #050505 100%);
   }
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    width: 100%;
-    margin: 32px 0 0;
-    padding: 20px 0 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    justify-content: center;
-    background: transparent;
-  }
-  .hero-stats li {
-    padding: 10px 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    border-radius: 6px;
-    min-height: 44px;
-    white-space: normal;
-  }
-  .hero-stats li.hero-stat-highlight {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-  .hero-stats li.hero-stat-highlight strong {
-    font-size: 18px;
-    line-height: 1;
-  }
-  .hero-stats li.hero-stat-highlight span:not(.stat-fill-bar) {
-    font-size: 10px;
-    text-transform: uppercase;
-    color: inherit;
-    margin: 0;
-  }
+  .hero-experience { margin-bottom: 12px; font-size: 11px; }
+  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; margin: 24px 0 0; padding: 16px 0 0; }
+  .hero-stats li { font-size: 12px; line-height: 1.45; }
+  .hero-actions .secondary-action { padding-left: 0; padding-right: 0; border: 0; background: none; backdrop-filter: none; }
+  #studio { padding-top: 44px; }
   .portfolio-artist summary { grid-template-columns: 1fr; }
   .artist-card-copy { min-height: 300px; padding: 28px 24px; }
   .artist-card-copy h3 { font-size: clamp(40px, 10vw, 64px); }
@@ -1131,9 +980,4 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 @media (max-width: 800px) {
   .section-head { grid-template-columns: minmax(0, 1fr); }
   .section-head h2 { font-size: clamp(36px, 10vw, 64px); overflow-wrap: anywhere; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-copy, .hero-stats li, .hero-stats li::before { animation: none; }
-  .stat-fill-bar { animation: none; width: 100%; }
 }
