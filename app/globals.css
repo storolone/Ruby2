@@ -220,24 +220,19 @@ button, input, select, textarea { font: inherit; }
   padding: 18px 0 0;
   border-top: 1px solid rgba(255,255,255,0.08);
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0;
   list-style: none;
 }
-.hero-stats-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  line-height: 1.6;
+.hero-stats li {
+  font-size: 12px;
+  line-height: 1.5;
   color: #bfbfbf;
-}
-.hero-stats-sep {
-  color: rgba(212, 175, 55, 0.45);
-  font-size: 14px;
-  user-select: none;
-  flex-shrink: 0;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
 /* Sections */
@@ -989,10 +984,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
       linear-gradient(to bottom, rgba(5, 5, 5, 0.85) 0%, rgba(5, 5, 5, 0.25) 45%, rgba(5, 5, 5, 0.85) 85%, #050505 100%);
   }
   .hero-experience { margin-bottom: 12px; font-size: 11px; }
-  .hero-stats { display: flex; flex-direction: column; gap: 6px; margin: 20px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,0.07); }
-  .hero-stats-row { font-size: 12px; flex-direction: column; align-items: flex-start; gap: 3px; }
-  .hero-stats-sep { display: none; }
-  .hero-stats li { font-size: 12px; line-height: 1.5; }
+  .hero-stats { flex-direction: column; align-items: flex-start; gap: 6px; margin: 20px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,0.07); }
+  .hero-stats li { font-size: 12px; white-space: normal; }
   .hero-actions .secondary-action { padding-left: 0; padding-right: 0; border: 0; background: none; backdrop-filter: none; }
   #studio { padding-top: 44px; }
   .portfolio-artist summary { grid-template-columns: 1fr; }
