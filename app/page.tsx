@@ -173,8 +173,6 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-left">
-          <div className="hero-topline">
-          </div>
           <div className="hero-copy">
             <h1>Ruby <em>Tattoo</em></h1>
             <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
@@ -184,7 +182,7 @@ export default function Home() {
             </div>
           </div>
           <ul className="hero-stats" aria-label="Ruby Tattoo hizmetleri">
-            <li><strong>20+</strong><span>Yıl deneyim</span></li>
+            <li className="hero-stat-highlight"><strong>20+</strong><span>Yıl deneyim</span></li>
             <li>Alanında uzmanlaşmış dövme sanatçıları</li>
             <li>Kişiye özel tasarım</li>
             <li>Profesyonel piercer kadrosu</li>
