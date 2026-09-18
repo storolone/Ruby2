@@ -227,10 +227,12 @@ button, input, select, textarea { font: inherit; }
 .hero-stats-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
   font-size: 13px;
   line-height: 1.6;
   color: #bfbfbf;
+  width: 100%;
 }
 .hero-stats-sep {
   color: rgba(212, 175, 55, 0.45);
