@@ -227,12 +227,11 @@ button, input, select, textarea { font: inherit; }
 .hero-stats-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 10px;
   font-size: 13px;
   line-height: 1.6;
   color: #bfbfbf;
-  width: 100%;
 }
 .hero-stats-sep {
   color: rgba(212, 175, 55, 0.45);
@@ -991,7 +990,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   }
   .hero-experience { margin-bottom: 12px; font-size: 11px; }
   .hero-stats { display: flex; flex-direction: column; gap: 6px; margin: 20px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,0.07); }
-  .hero-stats-row { font-size: 12px; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .hero-stats-row { font-size: 12px; flex-direction: column; align-items: flex-start; gap: 3px; }
   .hero-stats-sep { display: none; }
   .hero-stats li { font-size: 12px; line-height: 1.5; }
   .hero-actions .secondary-action { padding-left: 0; padding-right: 0; border: 0; background: none; backdrop-filter: none; }
