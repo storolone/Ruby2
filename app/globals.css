@@ -91,20 +91,20 @@ button, input, select, textarea { font: inherit; }
 
 /* Hero */
 .hero {
-  min-height: 100svh;
+  min-height: calc(100svh - 90px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 120px 5vw 36px;
+  padding: 64px 5vw 32px;
   position: relative;
   background: var(--bg);
   overflow: hidden;
 }
 .hero-left {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   position: relative;
   z-index: 2;
   display: flex;
@@ -214,11 +214,11 @@ button, input, select, textarea { font: inherit; }
 .hero-stats {
   width: 100%;
   max-width: 1240px;
-  margin: 32px auto 0;
+  margin: 40px 0 0;
   padding: 24px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   list-style: none;
   justify-content: center;
@@ -1006,7 +1006,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .site-header { height: auto; padding: 10px 24px; grid-template-columns: 1fr auto; gap: 4px 16px; }
   .nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: 0 24px; }
   .header-cta { grid-column: 2; grid-row: 1; }
-  html { scroll-padding-top: 180px; }
+  html { scroll-padding-top: 155px; }
+  .hero { min-height: calc(100svh - 141px); }
 }
 @media (max-width: 800px) {
   .nav { position: static; inset: auto; display: flex; flex-direction: row; flex-wrap: nowrap; background: transparent; padding: 0; gap: 20px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
@@ -1018,8 +1019,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .nav { gap: 20px; }
   .nav a { font-size: 13px; }
   .hero {
-    min-height: calc(100svh - 60px);
-    padding: 70px 20px 20px;
+    min-height: 0;
+    padding: 40px 20px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1031,12 +1032,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
-    flex: 1;
+    justify-content: flex-start;
+    flex: none;
   }
   .hero-copy {
-    padding: 16px 0 8px;
-    margin: auto 0;
+    padding: 0;
+    margin: 0;
     max-width: 100%;
     align-items: flex-start;
     text-align: left;
@@ -1044,7 +1045,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .hero-copy h1 {
     font-size: clamp(38px, 11vw, 52px);
     line-height: 1.08;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     text-align: left;
   }
   .hero-lead {
@@ -1059,13 +1060,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px 16px;
     justify-content: flex-start;
     width: 100%;
   }
   .hero-actions .primary-action,
   .hero-actions .secondary-action {
-    padding: 12px 18px;
+    padding: 12px 14px;
     font-size: 13px;
     border-radius: 4px;
     min-height: 44px;
@@ -1085,19 +1086,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   }
   .hero-stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     width: 100%;
-    margin: 16px auto 0;
-    padding: 12px 0 0;
+    margin: 32px 0 0;
+    padding: 20px 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     justify-content: center;
     background: transparent;
   }
   .hero-stats li {
     padding: 10px 8px;
-    font-size: 11px;
-    line-height: 1.35;
+    font-size: 12px;
+    line-height: 1.4;
     border-radius: 6px;
     min-height: 44px;
     white-space: normal;
@@ -1130,4 +1131,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 @media (max-width: 800px) {
   .section-head { grid-template-columns: minmax(0, 1fr); }
   .section-head h2 { font-size: clamp(36px, 10vw, 64px); overflow-wrap: anywhere; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy, .hero-stats li, .hero-stats li::before { animation: none; }
+  .stat-fill-bar { animation: none; width: 100%; }
 }
