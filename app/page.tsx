@@ -193,26 +193,20 @@ export default function Home() {
             </div>
           </div>
           <ul className="hero-stats" aria-label="Ruby Tattoo hizmetleri">
-            <li>
+            <li className="hero-stats-row">
               <span>Alanında uzmanlaşmış dövme sanatçıları</span>
-            </li>
-            <li>
+              <span className="hero-stats-sep" aria-hidden="true">|</span>
               <span>Kişiye özel tasarım</span>
             </li>
-            <li>
-              <span>Profesyonel piercer kadrosu</span>
-            </li>
-            <li>
+            <li className="hero-stats-row">
+              <span>Profesyonel piercing kadrosu</span>
+              <span className="hero-stats-sep" aria-hidden="true">|</span>
               <span>Lazer dövme silme</span>
             </li>
-            <li>
+            <li className="hero-stats-row">
               <span>Aksesuar</span>
-            </li>
-            <li>
+              <span className="hero-stats-sep" aria-hidden="true">|</span>
               <span>Yüksek sayıda piercing modeli</span>
-            </li>
-            <li>
-              <span>Ruby Coffeeshop</span>
             </li>
           </ul>
         </div>
