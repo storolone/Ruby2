@@ -300,11 +300,11 @@ textarea {
   content: "";
   position: absolute;
   left: 0;
-  top: 50%;
-  width: 5px;
-  height: 5px;
+  top: 0.75em;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #d4af65;
   transform: translateY(-50%);
 }
 
