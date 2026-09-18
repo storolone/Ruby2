@@ -898,7 +898,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .nav { gap: 20px; }
   .nav a { font-size: 13px; }
   .hero {
-    min-height: 0;
+    min-height: calc(100svh - var(--site-header-height, 101px));
+    min-height: calc(100dvh - var(--site-header-height, 101px));
     padding: 28px 20px 24px;
     display: flex;
     flex-direction: column;
@@ -911,12 +912,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
-    flex: none;
+    justify-content: space-between;
+    flex: 1;
   }
   .hero-copy {
     padding: 0;
-    margin: 0;
+    margin: auto 0;
     max-width: 100%;
     align-items: flex-start;
     text-align: left;

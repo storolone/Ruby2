@@ -83,6 +83,16 @@ const faqs = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    const updateHeight = () => document.documentElement.style.setProperty("--site-header-height", `${header.getBoundingClientRect().height}px`);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(header);
+    return () => { observer.disconnect(); document.documentElement.style.removeProperty("--site-header-height"); };
+  }, []);
+
   const [reference, setReference] = useState<File | null>(null);
   const [referencePreview, setReferencePreview] = useState("");
   const [fileError, setFileError] = useState("");
