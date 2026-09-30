@@ -9,7 +9,6 @@ const artists = [
     role: "Kurucu · Dövme Sanatçısı · Piercer",
     portrait: "/artists/alper.jpeg",
     imageCount: 15,
-    since: "2004'ten beri",
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
       "1984 Ankara doğumluyum. Kariyerime sanırım 6–7 yaşlarında, çocukluk ayıcığıma çizdiğim dövmelerle başlamış olabilirim. Yıllar içinde el sanatlarına olan ilgim artarak devam etti ve çeşitlendi.",
@@ -25,7 +24,6 @@ const artists = [
     role: "Dövme Sanatçısı",
     portrait: "/artists/fatih.jpeg",
     imageCount: 15,
-    since: "2009’dan beri",
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
       "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum.",
@@ -248,7 +246,7 @@ export default function Home() {
                   <img src={artist.portrait} alt={`${artist.name}, Ruby Tattoo dövme sanatçısı`} />
                 </div>
                 <div className="artist-card-copy">
-                  <span>0{index + 1} · {artist.since}</span>
+                  <span>0{index + 1}</span>
                   <h3>{artist.name}</h3>
                   <p>{artist.role}</p>
                   <div className="artist-card-action">
