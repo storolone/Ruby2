@@ -26,7 +26,7 @@ const artists = [
     portrait: "/artists/fatih.jpeg",
     imageCount: 15,
     since: "2009’dan beri",
-    specialties: ["Realism", "Fullcolor", "Microrealism", "Watercolor", "Portrait"],
+    specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
       "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum.",
       "Lise çağıma geldiğim zaman kendi isteğim ile güzel sanatlar lisesine gitmek istedim ve sınavlarına girdim, daha sonra Balıkesir Kadriye Kemal Gürel Güzel Sanatlar Lisesini kazanıp kariyer basamaklarına akademik eğitimi de eklemiş oldum.",
@@ -62,6 +62,23 @@ type VenuePhoto = { src: string; alt: string };
 // Yeni çekimleri public/studio ve public/cafe klasörlerine ekleyip bu listeleri güncelleyin.
 const studioPhotos: VenuePhoto[] = [{ src: "/hero-image.jpg", alt: "Ruby Tattoo stüdyosunun iç mekânı ve piercing koleksiyonu" }];
 const cafePhotos: VenuePhoto[] = [];
+const scalpPhotos: VenuePhoto[] = [
+  { src: "/scalp/01.webp", alt: "Saç simülasyonu uygulaması — 1 (1)" },
+  { src: "/scalp/02.webp", alt: "Saç simülasyonu uygulaması — 1 (2)" },
+  { src: "/scalp/03.webp", alt: "Saç simülasyonu uygulaması — 2 (1)" },
+  { src: "/scalp/04.webp", alt: "Saç simülasyonu uygulaması — 2 (2)" },
+  { src: "/scalp/05.webp", alt: "Saç simülasyonu uygulaması — 2 (3)" },
+  { src: "/scalp/06.webp", alt: "Saç simülasyonu uygulaması — 2 (4)" },
+  { src: "/scalp/07.webp", alt: "Saç simülasyonu uygulaması — 3 (1)" },
+  { src: "/scalp/08.webp", alt: "Saç simülasyonu uygulaması — 3 (2)" },
+  { src: "/scalp/09.webp", alt: "Saç simülasyonu uygulaması — 3 (3)" },
+  { src: "/scalp/10.webp", alt: "Saç simülasyonu uygulaması — 4 (1)" },
+  { src: "/scalp/11.webp", alt: "Saç simülasyonu uygulaması — 4 (2)" },
+  { src: "/scalp/12.webp", alt: "Saç simülasyonu uygulaması — 4 (3)" },
+  { src: "/scalp/13.webp", alt: "Saç simülasyonu uygulaması — 5 (1)" },
+  { src: "/scalp/14.webp", alt: "Saç simülasyonu uygulaması — 5 (2)" },
+];
+
 
 function VenueGallery({ images, label }: { images: VenuePhoto[]; label: string }) {
   if (!images.length) return <p className="gallery-note">{label} fotoğrafları yakında burada.</p>;
@@ -184,7 +201,6 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-left">
           <div className="hero-copy">
-            <p className="hero-experience">20+ yıl deneyim</p>
             <h1>Ruby <em>Tattoo</em></h1>
             <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
             <div className="hero-actions">
@@ -193,12 +209,14 @@ export default function Home() {
             </div>
           </div>
           <ul className="hero-stats" aria-label="Ruby Tattoo hizmetleri">
-            <li>Alanında uzmanlaşmış dövme sanatçıları</li>
-            <li>Kişiye özel tasarım</li>
-            <li>Profesyonel piercing kadrosu</li>
-            <li>Lazer dövme silme</li>
-            <li>Aksesuar</li>
-            <li>Yüksek sayıda piercing modeli</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 M12 7v5l3 2 M17 3v6 M14 6h6" /></svg><span>20+ yıl deneyim</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20l4-1L20 7l-3-3L5 16l-1 4 M14 7l3 3 M3 8h6 M6 5v6" /></svg><span>Alanında uzmanlaşmış dövme sanatçıları</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20h16 M5 15l10-10 4 4L9 19H5v-4 M13 7l4 4" /></svg><span>Kişiye özel tasarım</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 17c0-3-4-3-4-7a8 8 0 0 1 16 0c0 4-3 4-4 7-1 5-8 5-8 0 M9 10a3 3 0 0 1 6 0c0 2-3 2-3 4" /></svg><span>Profesyonel piercer kadrosu</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4l7 7 M8 5l3-3 5 5-3 3 M14 14l6 6 M17 12h4 M12 17v4 M4 20l5-5" /></svg><span>Lazer dövme silme</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5c0 17 16 17 16 0 M7 5c0 12 10 12 10 0 M10 18l2 3 2-3" /></svg><span>Aksesuar</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 5a8 8 0 1 0 8 0 M8 3v4 M16 3v4" /></svg><span>Yüksek sayıda piercing modeli</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9 M16 10h2a3 3 0 0 1 0 6h-2 M7 3v3 M11 2v4 M3 22h16" /></svg><span>Ruby Coffeeshop</span></li>
           </ul>
         </div>
         <div className="hero-right">
@@ -277,7 +295,7 @@ export default function Home() {
           <p className="section-label">03 — PIERCING</p>
           <div>
             <h2>Piercing</h2>
-            <p>Stiline ve anatomine uygun, hijyenik ve özenli uygulamalar.</p>
+            <p>Tarzınıza ve anatominize uygun hijyenik ve özenli uygulamalar</p>
           </div>
         </div>
         <div className="piercing-grid">
@@ -296,7 +314,7 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <p className="walk-in-note">Piercing için randevu gerekmiyor. Stüdyomuza doğrudan gelebilirsiniz.</p>
+        <p className="walk-in-note">Dermal piercing dışındaki piercing delimleri için 12:00 - 20:00 saatleri arasında randevu almadan gelebilirsiniz.</p>
       </section>
 
       <section className="service-section fade-in-section" id="scalp">
@@ -306,6 +324,7 @@ export default function Home() {
           <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
           <a className="text-link" href="https://wa.me/905363312002?text=Merhaba%2C%20sa%C3%A7%20sim%C3%BClasyonu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer">Bilgi al <span>→</span></a>
         </div>
+        <div className="scalp-gallery"><VenueGallery images={scalpPhotos} label="Saç simülasyonu" /></div>
       </section>
 
       <section className="venue-section cafe-section fade-in-section" id="cafe">
@@ -347,7 +366,7 @@ export default function Home() {
           <label htmlFor="tattoo-reference">YAPTIRMAK İSTEDİĞİNİZ DÖVME
             <input id="tattoo-reference" type="file" name="reference" accept="image/jpeg,image/png,image/webp" onChange={handleReferenceChange} aria-describedby="reference-help reference-error" />
           </label>
-          <small id="reference-help">İsteğe bağlı · JPG, PNG veya WebP · En fazla 10 MB. Fotoğrafınız bu siteye kaydedilmez. Telefonunuz destekliyorsa paylaşım ekranında WhatsApp’ı ve Ruby Tattoo’yu (0536 331 20 02) seçin; diğer cihazlarda fotoğrafı WhatsApp sohbetine ayrıca ekleyin.</small>
+          <small id="reference-help">İsterseniz örnek bir dövme fotoğrafı seçin (JPG, PNG veya WebP, en fazla 10 MB). Fotoğrafınız bu siteye kaydedilmez. Açılan paylaşım ekranından WhatsApp ile Ruby Tattoo’ya (0536 331 20 02) gönderin. Fotoğraf mesaja eklenmezse WhatsApp’ta ayrıca ekleyin.</small>
           <p id="reference-error" className="form-error" role="alert">{fileError}</p>
           {reference && <div className="reference-preview">
             {referencePreview && <img src={referencePreview} alt="Seçtiğiniz dövme referansı" />}
