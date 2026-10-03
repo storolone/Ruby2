@@ -379,7 +379,6 @@ export default function Home() {
           </div>}
           <label>FİKRİNİZ<textarea name="idea" placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
           <button type="submit">Randevu Al <span>→</span></button>
-          <small>Randevu talebi, mesajı Ruby Tattoo’ya gönderdiğinizde iletilir.</small>
           <p className="booking-status" role="status">{bookingStatus}</p>
         </form>
       </section>
