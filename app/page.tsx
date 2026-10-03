@@ -230,9 +230,22 @@ export default function Home() {
         <VenueGallery images={studioPhotos} label="Stüdyo" />
       </section>
 
+      <section className="manifesto fade-in-section" id="about">
+        <p className="section-label">02 — HAKKIMIZDA</p>
+        <div>
+          <h2>Hakkımızda</h2>
+          <p>Balıkesir’in ilk profesyonel dövme stüdyosu olma özelliğini taşıyan stüdyomuz 2008 yılından bu yana faaliyet göstermektedir. Uzun yıllardır aynı sanatçı kadrosuyla çalışan ve standartlarını açıldığı günden bu yana koruyan bir yapıya sahiptir. Farklı tarzlarda, alanında uzun yıllardır çalışan dövme sanatçılarımız sayesinde farklı beğenilere sahip dövme severlere hitap edebilecek geniş bir işçilik alanına sahiptir. Keyifli ve rahat çalışma alışkanlıklarını profesyonelleşirken kaybetmeyerek dövme yaptırmak için gelen misafirlerine de rahat bir ortam sağlamasıyla tanınmıştır.
+          </p>
+          <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
+          </p>
+          <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
+        </div>
+        <div aria-hidden="true" />
+      </section>
+
       <section className="works artists-section" id="artists">
         <div className="section-head">
-          <p className="section-label">02 — SANATÇILAR</p>
+          <p className="section-label">03 — SANATÇILAR</p>
           <div>
             <h2>Sanatçılarımız</h2>
             <p className="section-intro">Her sanatçının hikâyesini ve seçili işlerini kendi profilinde keşfedin.</p>
@@ -290,7 +303,7 @@ export default function Home() {
 
       <section className="piercing fade-in-section" id="piercing">
         <div className="section-head piercing-head">
-          <p className="section-label">03 — PIERCING</p>
+          <p className="section-label">04 — PIERCING</p>
           <div>
             <h2>Piercing</h2>
             <p>Tarzınıza ve anatominize uygun hijyenik ve özenli uygulamalar</p>
@@ -316,7 +329,7 @@ export default function Home() {
       </section>
 
       <section className="service-section fade-in-section" id="scalp">
-        <p className="section-label">04 — SAÇ SİMÜLASYONU</p>
+        <p className="section-label">05 — SAÇ SİMÜLASYONU</p>
         <div>
           <h2>Saç simülasyonu</h2>
           <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
@@ -327,7 +340,7 @@ export default function Home() {
 
       <section className="venue-section cafe-section fade-in-section" id="cafe">
         <div className="section-head">
-          <p className="section-label">05 — KAFE</p>
+          <p className="section-label">06 — KAFE</p>
           <div><h2>Ruby Coffeeshop</h2><p className="section-intro">Stüdyomuzun hemen karşısında bir kahve molası.</p></div>
         </div>
         <VenueGallery images={cafePhotos} label="Ruby Coffeeshop" />
@@ -335,7 +348,7 @@ export default function Home() {
 
       <section className="faq fade-in-section" id="faq">
         <div>
-          <p className="section-label">06 — MERAK EDİLENLER</p>
+          <p className="section-label">07 — MERAK EDİLENLER</p>
           <h2>Sormadan önce.</h2>
         </div>
         <div className="faq-list">
@@ -354,7 +367,7 @@ export default function Home() {
 
       <section className="booking fade-in-section" id="booking">
         <div className="booking-title">
-          <p className="section-label">07 — RANDEVU</p>
+          <p className="section-label">08 — RANDEVU</p>
           <h2>Tarzına uygun <em>dövme için</em> randevu oluştur.</h2>
           <p>Formu doldur, ekibimiz 24 saat içinde sana ulaşsın.</p>
         </div>
@@ -381,19 +394,6 @@ export default function Home() {
           <button type="submit">Randevu Al <span>→</span></button>
           <p className="booking-status" role="status">{bookingStatus}</p>
         </form>
-      </section>
-
-      <section className="manifesto fade-in-section" id="about">
-        <p className="section-label">08 — HAKKIMIZDA</p>
-        <div>
-          <h2>Hakkımızda</h2>
-          <p>Balıkesir’in ilk profesyonel dövme stüdyosu olma özelliğini taşıyan stüdyomuz 2008 yılından bu yana faaliyet göstermektedir. Uzun yıllardır aynı sanatçı kadrosuyla çalışan ve standartlarını açıldığı günden bu yana koruyan bir yapıya sahiptir. Farklı tarzlarda, alanında uzun yıllardır çalışan dövme sanatçılarımız sayesinde farklı beğenilere sahip dövme severlere hitap edebilecek geniş bir işçilik alanına sahiptir. Keyifli ve rahat çalışma alışkanlıklarını profesyonelleşirken kaybetmeyerek dövme yaptırmak için gelen misafirlerine de rahat bir ortam sağlamasıyla tanınmıştır.
-          </p>
-          <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
-          </p>
-          <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
-        </div>
-        <div aria-hidden="true" />
       </section>
 
       <footer className="fade-in-section">

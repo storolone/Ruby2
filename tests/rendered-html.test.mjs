@@ -21,7 +21,8 @@ test("renders Ruby with working section links and existing gallery assets", asyn
   }
   const imagePaths = [...new Set([...html.matchAll(/<img[^>]+src="(\/[^"?]+)"/g)].map(match => match[1]))];
   await Promise.all(imagePaths.map(path => access(new URL(`../public${path}`, import.meta.url))));
-  assert.ok(html.indexOf('id="about"') > html.indexOf('id="booking"'));
+  assert.ok(html.indexOf('id="studio"') < html.indexOf('id="about"'));
+  assert.ok(html.indexOf('id="about"') < html.indexOf('id="artists"'));
 });
 
 test("offers a tattoo reference file instead of a style or piercing appointment", async () => {
