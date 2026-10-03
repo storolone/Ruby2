@@ -1948,3 +1948,12 @@ summary:focus-visible {
   .scalp-gallery .venue-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
   .scalp-gallery .venue-gallery figcaption { font-size: 11px; line-height: 1.5; }
 }
+
+/* Enlarge artwork within the existing header dimensions. */
+.wordmark { overflow: hidden; }
+.brand-logo { transform: scale(1.6); }
+.artist-about-aside { min-width: 0; }
+.artist-bear { display: block; width: 100%; max-width: 280px; height: 340px; object-fit: cover; object-position: center bottom; margin-top: 28px; border-radius: 8px; }
+@media (max-width: 800px) {
+  .artist-bear { max-width: 220px; height: 270px; }
+}

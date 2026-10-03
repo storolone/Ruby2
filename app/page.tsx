@@ -8,7 +8,7 @@ const artists = [
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı · Piercer",
     portrait: "/artists/alper.jpeg",
-    imageCount: 15,
+    images: [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 15],
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
       "1984 Ankara doğumluyum. Kariyerime sanırım 6–7 yaşlarında, çocukluk ayıcığıma çizdiğim dövmelerle başlamış olabilirim. Yıllar içinde el sanatlarına olan ilgim artarak devam etti ve çeşitlendi.",
@@ -23,7 +23,7 @@ const artists = [
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
     portrait: "/artists/fatih.jpeg",
-    imageCount: 15,
+    images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
       "1992 yılında Balıkesir’de doğdum. Görsel sanatlarla olan ilişkim yaklaşık 7-8 yaşlarında her gördüğüm yeri kâğıtlara çizmemle başladı, sonrasında ilkokul yıllarımda ise artarak devam etti. Ortaokul yıllarında ufak tefek paralar karşılığında arkadaşlarımın sıralarına ya da kollarına tükenmez kalemle istedikleri görselleri çizerdim, tüm bunlar olurken ileride bir dövme sanatçısı olacağımı tabii ki bilmiyordum.",
@@ -36,13 +36,13 @@ const artists = [
   },
 ] as const;
 
-// Portfolyoda gösterilecek çalışma sayısı sanatçıların imageCount alanından ayarlanır.
+// Portfolyo görselleri sanatçının images listesinden seçilir.
 const portfolios = Object.fromEntries(
   artists.map((artist) => [
     artist.id,
-    Array.from({ length: artist.imageCount }, (_, index) => ({
+    artist.images.map((image, index) => ({
       no: String(index + 1).padStart(2, "0"),
-      image: `/${artist.id}/${index + 1}.jpg`,
+      image: `/${artist.id}/${image}.jpg`,
     })),
   ]),
 ) as Record<(typeof artists)[number]["id"], { no: string; image: string }[]>;
@@ -186,14 +186,14 @@ export default function Home() {
         </a>
         <nav className="nav" aria-label="Ana menü">
           <a href="#studio">Stüdyo</a>
+          <a href="#about">Hakkımızda</a>
           <a href="#artists">Sanatçılar</a>
           <a href="#piercing">Piercing</a>
           <a href="#scalp">Saç simülasyonu</a>
           <a href="#cafe">Kafe</a>
-          <a href="#about">Hakkımızda</a>
           <a href="#faq">SSS</a>
         </nav>
-        <a className="header-cta" href="#booking">Randevu al <span>→</span></a>
+        <a className="header-cta" href="#booking">Randevu Al <span>→</span></a>
       </header>
 
       <section className="hero" id="top">
@@ -202,7 +202,7 @@ export default function Home() {
             <h1>Ruby <em>Tattoo</em></h1>
             <p className="hero-lead">Balıkesir’in ilk profesyonel dövme stüdyosu</p>
             <div className="hero-actions">
-              <a className="primary-action" href="#booking">Randevu al <span>→</span></a>
+              <a className="primary-action" href="#booking">Randevu Al <span>→</span></a>
               <a className="secondary-action" href="#artists">Sanatçıları tanı <span>↓</span></a>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function Home() {
               </summary>
               <div className="artist-profile-content">
                 <div className="artist-about">
-                  <p className="section-label">HAKKINDA</p>
+                  <div className="artist-about-aside"><p className="section-label">HAKKINDA</p>{artist.id === "alper" && <img className="artist-bear" src="/artists/alper-bear.jpeg" alt="Alper’in ayıcığı" loading="lazy" />}</div>
                   <div className="artist-bio">
                     {artist.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   </div>
@@ -271,7 +271,7 @@ export default function Home() {
                 <div className="artist-work-heading" id={`${artist.id}-works`}>
                   <p className="section-label">SEÇİLİ İŞLER</p>
                   <h4>{artist.name} portfolyosu</h4>
-                  <span>{artist.imageCount} çalışma</span>
+                  <span>{artist.images.length} çalışma</span>
                 </div>
                 <div className="work-grid artist-inline-gallery">
                   {portfolios[artist.id].map((work) => (
@@ -364,7 +364,7 @@ export default function Home() {
           <label htmlFor="tattoo-reference">YAPTIRMAK İSTEDİĞİNİZ DÖVME
             <input id="tattoo-reference" type="file" name="reference" accept="image/jpeg,image/png,image/webp" onChange={handleReferenceChange} aria-describedby="reference-help reference-error" />
           </label>
-          <small id="reference-help">İsterseniz örnek bir dövme fotoğrafı seçin (JPG, PNG veya WebP, en fazla 10 MB). Fotoğrafınız bu siteye kaydedilmez. Açılan paylaşım ekranından WhatsApp ile Ruby Tattoo’ya (0536 331 20 02) gönderin. Fotoğraf mesaja eklenmezse WhatsApp’ta ayrıca ekleyin.</small>
+          <small id="reference-help">Dosya yükleyin</small>
           <p id="reference-error" className="form-error" role="alert">{fileError}</p>
           {reference && <div className="reference-preview">
             {referencePreview && <img src={referencePreview} alt="Seçtiğiniz dövme referansı" />}
@@ -378,7 +378,7 @@ export default function Home() {
             }}>Fotoğrafı kaldır</button>
           </div>}
           <label>FİKRİNİZ<textarea name="idea" placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
-          <button type="submit">{reference ? "Fotoğrafla randevu talebini paylaş" : "WhatsApp’tan randevu talebi gönder"} <span>→</span></button>
+          <button type="submit">Randevu Al <span>→</span></button>
           <small>Randevu talebi, mesajı Ruby Tattoo’ya gönderdiğinizde iletilir.</small>
           <p className="booking-status" role="status">{bookingStatus}</p>
         </form>

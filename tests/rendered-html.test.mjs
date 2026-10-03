@@ -27,7 +27,7 @@ test("renders Ruby with working section links and existing gallery assets", asyn
 test("offers a tattoo reference file instead of a style or piercing appointment", async () => {
   const html = await (await render()).text();
   assert.match(html, /type="file"[^>]*name="reference"/);
-  assert.match(html, /Fotoğrafınız bu siteye kaydedilmez/);
+  assert.match(html, /Dosya yükleyin/);
   assert.doesNotMatch(html, /name="style"|Piercing randevusu al|STÜDYO MİSAFİRİ|menu-toggle/);
   assert.match(html, /Dermal piercing dışındaki piercing delimleri için 12:00 - 20:00/);
 });
