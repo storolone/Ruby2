@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from "react";
 
 const artists = [
   {
@@ -87,6 +87,32 @@ const scalpPhotos: VenuePhoto[] = [
   { src: "/scalp/14.webp", alt: "Saç simülasyonu uygulaması — 5 (2)" },
 ];
 
+
+function StudioSpiral() {
+  const [active, setActive] = useState(0);
+  const startX = useRef<number | null>(null);
+  const suppressClick = useRef(false);
+  const move = (step: number) => setActive(value => (value + step + studioPhotos.length) % studioPhotos.length);
+  return <div className="studio-spiral" role="region" aria-label="Stüdyo fotoğraf galerisi" aria-roledescription="karusel">
+    <div className="spiral-stage" onTouchStart={event => { startX.current = event.touches[0].clientX; suppressClick.current = false; }} onTouchEnd={event => {
+      if (startX.current !== null) { const delta = event.changedTouches[0].clientX - startX.current; if (Math.abs(delta) > 45) { move(delta < 0 ? 1 : -1); suppressClick.current = true; } }
+      startX.current = null;
+    }} onClickCapture={event => { if (suppressClick.current) { event.preventDefault(); suppressClick.current = false; } }}>
+      {studioPhotos.map((photo, index) => {
+        let offset = (index - active + studioPhotos.length) % studioPhotos.length;
+        if (offset > studioPhotos.length / 2) offset -= studioPhotos.length;
+        return <a key={photo.src} className="spiral-photo" data-offset={offset} href={photo.src} target="_blank" rel="noreferrer" tabIndex={offset === 0 ? 0 : -1} aria-hidden={offset !== 0} aria-label={`${photo.alt}, büyük aç`}>
+          <img src={photo.src} alt={photo.alt} loading="lazy" draggable="false" />
+        </a>;
+      })}
+    </div>
+    <div className="spiral-controls">
+      <button type="button" onClick={() => move(-1)} aria-label="Önceki stüdyo fotoğrafı">←</button>
+      <p aria-live="polite" aria-atomic="true"><span>{String(active + 1).padStart(2, "0")} / {String(studioPhotos.length).padStart(2, "0")}</span>{studioPhotos[active].alt}</p>
+      <button type="button" onClick={() => move(1)} aria-label="Sonraki stüdyo fotoğrafı">→</button>
+    </div>
+  </div>;
+}
 
 function VenueGallery({ images, label }: { images: VenuePhoto[]; label: string }) {
   if (!images.length) return <p className="gallery-note">{label} fotoğrafları yakında burada.</p>;
@@ -237,7 +263,7 @@ export default function Home() {
           <p className="section-label">01 — STÜDYO</p>
           <div><h2>Stüdyomuz</h2><p className="section-intro">Ruby Tattoo’dan kareler.</p></div>
         </div>
-        <VenueGallery images={studioPhotos} label="Stüdyo" />
+        <StudioSpiral />
       </section>
 
       <section className="manifesto fade-in-section" id="about">
@@ -250,7 +276,7 @@ export default function Home() {
           </p>
           <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
         </div>
-        <div aria-hidden="true" />
+        <figure className="about-photo"><img src="/studio/about-sign.webp" alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
       </section>
 
       <section className="works artists-section" id="artists">
