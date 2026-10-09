@@ -2007,3 +2007,25 @@ summary:focus-visible {
   .about-photo img { object-position: center 35%; }
 }
 @media (prefers-reduced-motion: reduce) { .spiral-photo { transition: none; } }
+
+/* Artist portfolios: a quiet, fanned photographic deck. */
+.artist-deck { min-width: 0; padding: 12px 0 24px; }
+.deck-stage { position: relative; height: 540px; overflow: hidden; touch-action: pan-y; }
+.deck-photo { position: absolute; top: 35px; left: calc(50% - 170px); width: 340px; height: 450px; padding: 8px; background: #171717; border: 1px solid #ffffff20; border-radius: 4px; box-shadow: 0 18px 45px #0009; opacity: 0; pointer-events: none; transform: scale(.7); transition: transform .55s ease, opacity .55s ease; }
+.deck-photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.deck-photo[data-offset="0"] { opacity: 1; transform: none; z-index: 5; pointer-events: auto; }
+.deck-photo[data-offset="1"] { opacity: .65; transform: translate(215px, 24px) rotate(10deg) scale(.88); z-index: 4; }
+.deck-photo[data-offset="-1"] { opacity: .65; transform: translate(-215px, 24px) rotate(-10deg) scale(.88); z-index: 4; }
+.deck-photo[data-offset="2"] { opacity: .3; transform: translate(365px, 50px) rotate(18deg) scale(.76); z-index: 3; }
+.deck-photo[data-offset="-2"] { opacity: .3; transform: translate(-365px, 50px) rotate(-18deg) scale(.76); z-index: 3; }
+.artist-deck .spiral-controls { margin-top: 0; }
+@media (max-width: 800px) {
+  .deck-stage { height: 380px; }
+  .deck-photo { width: 230px; height: 320px; left: calc(50% - 115px); top: 20px; padding: 5px; }
+  .deck-photo[data-offset="1"] { transform: translate(110px, 15px) rotate(10deg) scale(.84); }
+  .deck-photo[data-offset="-1"] { transform: translate(-110px, 15px) rotate(-10deg) scale(.84); }
+  .deck-photo[data-offset="2"] { transform: translate(180px, 30px) rotate(18deg) scale(.7); }
+  .deck-photo[data-offset="-2"] { transform: translate(-180px, 30px) rotate(-18deg) scale(.7); }
+  .artist-deck .spiral-controls { padding: 0; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .deck-photo { transition: none; } }

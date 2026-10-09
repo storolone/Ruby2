@@ -114,6 +114,33 @@ function StudioSpiral() {
   </div>;
 }
 
+function ArtistDeck({ artist }: { artist: (typeof artists)[number] }) {
+  const photos = portfolios[artist.id].map(work => ({ src: work.image, alt: `${artist.name} dövme çalışması ${work.no}` }));
+  const [active, setActive] = useState(0);
+  const startX = useRef<number | null>(null);
+  const suppressClick = useRef(false);
+  const move = (step: number) => setActive(value => (value + step + photos.length) % photos.length);
+  return <div className="artist-deck" role="region" aria-label={`${artist.name} portfolyo galerisi`} aria-roledescription="karusel">
+    <div className="deck-stage" onTouchStart={event => { startX.current = event.touches[0].clientX; suppressClick.current = false; }} onTouchEnd={event => {
+      if (startX.current !== null) { const delta = event.changedTouches[0].clientX - startX.current; if (Math.abs(delta) > 45) { move(delta < 0 ? 1 : -1); suppressClick.current = true; } }
+      startX.current = null;
+    }} onClickCapture={event => { if (suppressClick.current) { event.preventDefault(); suppressClick.current = false; } }}>
+      {photos.map((photo, index) => {
+        let offset = (index - active + photos.length) % photos.length;
+        if (offset > photos.length / 2) offset -= photos.length;
+        return <a key={photo.src} className="deck-photo" data-offset={offset} href={photo.src} target="_blank" rel="noreferrer" tabIndex={offset === 0 ? 0 : -1} aria-hidden={offset !== 0} aria-label={`${photo.alt}, büyük aç`}>
+          <img src={photo.src} alt={photo.alt} loading="lazy" draggable="false" />
+        </a>;
+      })}
+    </div>
+    <div className="spiral-controls">
+      <button type="button" onClick={() => move(-1)} aria-label={`${artist.name} önceki çalışma`}>←</button>
+      <p aria-live="polite" aria-atomic="true"><span>{String(active + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}</span>{photos[active].alt}</p>
+      <button type="button" onClick={() => move(1)} aria-label={`${artist.name} sonraki çalışma`}>→</button>
+    </div>
+  </div>;
+}
+
 function VenueGallery({ images, label }: { images: VenuePhoto[]; label: string }) {
   if (!images.length) return <p className="gallery-note">{label} fotoğrafları yakında burada.</p>;
   return <div className="venue-gallery">
@@ -322,15 +349,7 @@ export default function Home() {
                   <h4>{artist.name} portfolyosu</h4>
                   <span>{artist.images.length} çalışma</span>
                 </div>
-                <div className="work-grid artist-inline-gallery">
-                  {portfolios[artist.id].map((work) => (
-                    <article className="work-card" key={`${artist.id}-${work.no}`}>
-                      <div className="work-art">
-                        <img src={work.image} alt={`${artist.name} dövme çalışması ${work.no}`} loading="lazy" />
-                      </div>
-                    </article>
-                  ))}
-                </div>
+                <ArtistDeck artist={artist} />
               </div>
             </details>
           ))}
