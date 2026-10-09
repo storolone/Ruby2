@@ -1968,3 +1968,9 @@ summary:focus-visible {
   #about { width: calc(100% - 40px); padding: 32px 0; grid-template-columns: minmax(0, 1fr); gap: 14px; }
   #about h2 { font-size: 30px; }
 }
+
+/* Preserve framing of venue photographs. */
+#studio .venue-gallery a, #cafe .venue-gallery a { background: #0d0d0d; }
+#studio .venue-gallery img, #cafe .venue-gallery img { object-fit: contain; }
+#cafe .venue-gallery { max-width: 560px; }
+#cafe .venue-gallery figure:only-child a { aspect-ratio: 3 / 4; }

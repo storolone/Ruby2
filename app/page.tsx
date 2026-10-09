@@ -58,8 +58,18 @@ const piercings = [
 
 type VenuePhoto = { src: string; alt: string };
 // Yeni çekimleri public/studio ve public/cafe klasörlerine ekleyip bu listeleri güncelleyin.
-const studioPhotos: VenuePhoto[] = [{ src: "/hero-image.jpg", alt: "Ruby Tattoo stüdyosunun iç mekânı ve piercing koleksiyonu" }];
-const cafePhotos: VenuePhoto[] = [];
+const studioPhotos: VenuePhoto[] = [
+  { src: "/studio/dsc09013.webp", alt: "Stüdyonun genel görünümü" },
+  { src: "/studio/dsc09017.webp", alt: "Stüdyo girişi ve iç mekân" },
+  { src: "/studio/kapak.webp", alt: "Ruby Tattoo dış cephe ve tabelası" },
+  { src: "/studio/dsc08949.webp", alt: "Stüdyodaki motosiklet detayı" },
+  { src: "/studio/dsc08962.webp", alt: "Piercing koleksiyonu vitrinleri" },
+  { src: "/studio/dsc08968.webp", alt: "Takı vitrini detayı" },
+  { src: "/studio/dsc08971.webp", alt: "Stüdyonun ahşap dekorasyonu" },
+  { src: "/studio/dsc08977.webp", alt: "Stüdyo aynası ve vitrin detayı" },
+  { src: "/studio/dsc09007.webp", alt: "Stüdyodaki dekoratif aydınlatma" },
+];
+const cafePhotos: VenuePhoto[] = [{ src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" }];
 const scalpPhotos: VenuePhoto[] = [
   { src: "/scalp/01.webp", alt: "Saç simülasyonu uygulaması — 1 (1)" },
   { src: "/scalp/02.webp", alt: "Saç simülasyonu uygulaması — 1 (2)" },
