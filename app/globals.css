@@ -2029,3 +2029,24 @@ summary:focus-visible {
   .artist-deck .spiral-controls { padding: 0; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .deck-photo { transition: none; } }
+
+/* Let each gallery frame follow the photograph's original orientation. */
+.spiral-photo, .deck-photo {
+  width: max-content;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}
+.spiral-photo img, .deck-photo img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(60vw, 650px);
+  max-height: 410px;
+  object-fit: contain;
+}
+@media (max-width: 800px) {
+  .spiral-photo img { max-width: 76vw; max-height: 290px; }
+  .deck-photo img { max-width: 66vw; max-height: 300px; }
+}
