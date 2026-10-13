@@ -67,29 +67,17 @@ const studioPhotos: VenuePhoto[] = [
   { src: "/studio/dsc08968.webp", alt: "Takı vitrini detayı" },
   { src: "/studio/dsc08971.webp", alt: "Stüdyonun ahşap dekorasyonu" },
   { src: "/studio/dsc08977.webp", alt: "Stüdyo aynası ve vitrin detayı" },
-  { src: "/studio/dsc08964.webp", alt: "Piercing vitrinlerinden bir görünüm" },
-  { src: "/studio/dsc08970.webp", alt: "Stüdyonun takı koleksiyonu" },
-  { src: "/studio/dsc08975.webp", alt: "Vitrinler ve stüdyo iç mekânı" },
   { src: "/studio/dsc08998.webp", alt: "Stüdyodaki heykel detayı" },
   { src: "/studio/dsc09002.webp", alt: "Stüdyonun oturma alanı" },
-  { src: "/studio/dsc09008.webp", alt: "Ruby logolu bardak detayı" },
+  { src: "/studio/dsc09008.webp", alt: "Ruby coffe" },
 ];
 const cafePhotos: VenuePhoto[] = [{ src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" }];
 const scalpPhotos: VenuePhoto[] = [
-  { src: "/scalp/01.webp", alt: "Saç simülasyonu uygulaması — 1 (1)" },
-  { src: "/scalp/02.webp", alt: "Saç simülasyonu uygulaması — 1 (2)" },
-  { src: "/scalp/03.webp", alt: "Saç simülasyonu uygulaması — 2 (1)" },
-  { src: "/scalp/04.webp", alt: "Saç simülasyonu uygulaması — 2 (2)" },
-  { src: "/scalp/05.webp", alt: "Saç simülasyonu uygulaması — 2 (3)" },
-  { src: "/scalp/06.webp", alt: "Saç simülasyonu uygulaması — 2 (4)" },
-  { src: "/scalp/07.webp", alt: "Saç simülasyonu uygulaması — 3 (1)" },
-  { src: "/scalp/08.webp", alt: "Saç simülasyonu uygulaması — 3 (2)" },
-  { src: "/scalp/09.webp", alt: "Saç simülasyonu uygulaması — 3 (3)" },
-  { src: "/scalp/10.webp", alt: "Saç simülasyonu uygulaması — 4 (1)" },
-  { src: "/scalp/11.webp", alt: "Saç simülasyonu uygulaması — 4 (2)" },
-  { src: "/scalp/12.webp", alt: "Saç simülasyonu uygulaması — 4 (3)" },
-  { src: "/scalp/13.webp", alt: "Saç simülasyonu uygulaması — 5 (1)" },
-  { src: "/scalp/14.webp", alt: "Saç simülasyonu uygulaması — 5 (2)" },
+  { src: "/scalp/06.webp", alt: "Saç simülasyonu uygulaması 1" },
+  { src: "/scalp/04.webp", alt: "Saç simülasyonu uygulaması 2" },
+  { src: "/scalp/08.webp", alt: "Saç simülasyonu uygulaması 3" },
+  { src: "/scalp/12.webp", alt: "Saç simülasyonu uygulaması 4" },
+  { src: "/scalp/14.webp", alt: "Saç simülasyonu uygulaması 5" },
 ];
 
 
