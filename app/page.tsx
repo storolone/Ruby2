@@ -62,12 +62,17 @@ const studioPhotos: VenuePhoto[] = [
   { src: "/studio/dsc09013.webp", alt: "Stüdyonun genel görünümü" },
   { src: "/studio/dsc09017.webp", alt: "Stüdyo girişi ve iç mekân" },
   { src: "/studio/kapak.webp", alt: "Ruby Tattoo dış cephe ve tabelası" },
-  { src: "/studio/dsc08949.webp", alt: "Stüdyodaki motosiklet detayı" },
+  { src: "/studio/dsc08987.webp", alt: "Stüdyonun dövme uygulama alanı" },
   { src: "/studio/dsc08962.webp", alt: "Piercing koleksiyonu vitrinleri" },
   { src: "/studio/dsc08968.webp", alt: "Takı vitrini detayı" },
   { src: "/studio/dsc08971.webp", alt: "Stüdyonun ahşap dekorasyonu" },
   { src: "/studio/dsc08977.webp", alt: "Stüdyo aynası ve vitrin detayı" },
-  { src: "/studio/dsc09007.webp", alt: "Stüdyodaki dekoratif aydınlatma" },
+  { src: "/studio/dsc08964.webp", alt: "Piercing vitrinlerinden bir görünüm" },
+  { src: "/studio/dsc08970.webp", alt: "Stüdyonun takı koleksiyonu" },
+  { src: "/studio/dsc08975.webp", alt: "Vitrinler ve stüdyo iç mekânı" },
+  { src: "/studio/dsc08998.webp", alt: "Stüdyodaki heykel detayı" },
+  { src: "/studio/dsc09002.webp", alt: "Stüdyonun oturma alanı" },
+  { src: "/studio/dsc09008.webp", alt: "Ruby logolu bardak detayı" },
 ];
 const cafePhotos: VenuePhoto[] = [{ src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" }];
 const scalpPhotos: VenuePhoto[] = [
@@ -390,7 +395,13 @@ export default function Home() {
           <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
           <a className="text-link" href="https://wa.me/905363312002?text=Merhaba%2C%20sa%C3%A7%20sim%C3%BClasyonu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer">Bilgi al <span>→</span></a>
         </div>
-        <div className="scalp-gallery"><VenueGallery images={scalpPhotos} label="Saç simülasyonu" /></div>
+        <details className="scalp-portfolio">
+          <summary>
+            <span>Uygulamaları gör <small>{scalpPhotos.length} fotoğraf</small></span>
+            <span className="artist-card-toggle" aria-hidden="true" />
+          </summary>
+          <div className="scalp-gallery"><VenueGallery images={scalpPhotos} label="Saç simülasyonu" /></div>
+        </details>
       </section>
 
       <section className="venue-section cafe-section fade-in-section" id="cafe">

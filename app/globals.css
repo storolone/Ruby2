@@ -2050,3 +2050,11 @@ summary:focus-visible {
   .spiral-photo img { max-width: 76vw; max-height: 290px; }
   .deck-photo img { max-width: 66vw; max-height: 300px; }
 }
+
+/* Scalp portfolio opens on request, like artist profiles. */
+.scalp-portfolio { grid-column: 1 / -1; min-width: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.scalp-portfolio summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; cursor: pointer; list-style: none; }
+.scalp-portfolio summary::-webkit-details-marker { display: none; }
+.scalp-portfolio summary small { display: block; color: var(--text-muted); font-size: 12px; margin-top: 8px; }
+.scalp-portfolio[open] .artist-card-toggle { transform: rotate(180deg); }
+.scalp-portfolio .scalp-gallery { padding: 12px 0 32px; }
