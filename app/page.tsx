@@ -7,7 +7,7 @@ const artists = [
     id: "alper",
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı · Piercer",
-    portrait: "/artists/alper.jpeg",
+    portrait: "/artists/alper-portrait.webp",
     images: [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 15],
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
@@ -22,7 +22,7 @@ const artists = [
     id: "fatih",
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
-    portrait: "/artists/fatih.jpeg",
+    portrait: "/artists/fatih-portrait.webp",
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
@@ -71,13 +71,15 @@ const studioPhotos: VenuePhoto[] = [
   { src: "/studio/dsc09002.webp", alt: "Stüdyonun oturma alanı" },
   { src: "/studio/dsc09008.webp", alt: "Ruby coffe" },
 ];
-const cafePhotos: VenuePhoto[] = [{ src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" }];
+const cafePhotos: VenuePhoto[] = [
+  { src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" },
+  { src: "/cafe/ruby-sign.webp", alt: "Ruby Coffeeshop tabelası" },
+];
 const scalpPhotos: VenuePhoto[] = [
-  { src: "/scalp/06.webp", alt: "Saç simülasyonu uygulaması 1" },
-  { src: "/scalp/04.webp", alt: "Saç simülasyonu uygulaması 2" },
-  { src: "/scalp/08.webp", alt: "Saç simülasyonu uygulaması 3" },
-  { src: "/scalp/12.webp", alt: "Saç simülasyonu uygulaması 4" },
-  { src: "/scalp/14.webp", alt: "Saç simülasyonu uygulaması 5" },
+  { src: "/scalp/03.webp", alt: "Birinci uygulama — öncesi" },
+  { src: "/scalp/04.webp", alt: "Birinci uygulama — sonrası" },
+  { src: "/scalp/07.webp", alt: "İkinci uygulama — öncesi" },
+  { src: "/scalp/08.webp", alt: "İkinci uygulama — sonrası" },
 ];
 
 
@@ -388,7 +390,23 @@ export default function Home() {
             <span>Uygulamaları gör <small>{scalpPhotos.length} fotoğraf</small></span>
             <span className="artist-card-toggle" aria-hidden="true" />
           </summary>
-          <div className="scalp-gallery"><VenueGallery images={scalpPhotos} label="Saç simülasyonu" /></div>
+          <div className="scalp-comparisons">
+            {[0, 2].map((start, index) => (
+              <div className="scalp-comparison" key={start}>
+                <h3>Uygulama {index + 1}</h3>
+                <div className="scalp-pair">
+                  {scalpPhotos.slice(start, start + 2).map((photo, photoIndex) => (
+                    <figure key={photo.src}>
+                      <a href={photo.src} target="_blank" rel="noreferrer" aria-label={`${photo.alt}, tam boy aç`}>
+                        <img src={photo.src} alt={photo.alt} loading="lazy" />
+                      </a>
+                      <figcaption>{photoIndex === 0 ? "Öncesi" : "Sonrası"}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </details>
       </section>
 
