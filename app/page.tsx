@@ -7,8 +7,8 @@ const artists = [
     id: "alper",
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı · Piercer",
-    portrait: "/artists/alper-portrait.webp",
-    images: [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 15],
+    portrait: "/artists/alper.jpeg",
+    images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
       "1984 Ankara doğumluyum. Kariyerime sanırım 6–7 yaşlarında, çocukluk ayıcığıma çizdiğim dövmelerle başlamış olabilirim. Yıllar içinde el sanatlarına olan ilgim artarak devam etti ve çeşitlendi.",
@@ -22,7 +22,7 @@ const artists = [
     id: "fatih",
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
-    portrait: "/artists/fatih-portrait.webp",
+    portrait: "/artists/fatih.jpeg",
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
@@ -42,18 +42,42 @@ const portfolios = Object.fromEntries(
     artist.id,
     artist.images.map((image, index) => ({
       no: String(index + 1).padStart(2, "0"),
-      image: `/${artist.id}/${image}.jpg`,
+      image: `/${artist.id}/oct-2026/${image}.webp`,
     })),
   ]),
 ) as Record<(typeof artists)[number]["id"], { no: string; image: string }[]>;
 
 const piercings = [
-  { no: "01", title: "Conch", meta: "Kulak Piercingi → İç Kıkırdak", image: "/piercing/1.jpg" },
-  { no: "02", title: "Helix", meta: "Kulak Piercingi → Dış/Orta Kıkırdak", image: "/piercing/2.jpg" },
-  { no: "03", title: "Conch", meta: "Kulak Piercingi → İç Kıkırdak", image: "/piercing/3.jpg" },
-  { no: "04", title: "Microdermal", meta: "Yüzey Piercingi → Cilt Altı", image: "/piercing/4.jpg" },
-  { no: "05", title: "Medusa", meta: "Yüz Piercingi → Ağız ve Dudak", image: "/piercing/5.jpg" },
-  { no: "06", title: "Helix", meta: "Kulak Piercingi → Dış/Orta Kıkırdak", image: "/piercing/6.jpg" },
+  {
+    "title": "Kulak",
+    "slug": "kulak",
+    "count": 28
+  },
+  {
+    "title": "Burun",
+    "slug": "burun",
+    "count": 5
+  },
+  {
+    "title": "Kaş",
+    "slug": "kas",
+    "count": 3
+  },
+  {
+    "title": "Dudak-Ağız içi",
+    "slug": "dudak",
+    "count": 7
+  },
+  {
+    "title": "Dermal",
+    "slug": "dermal",
+    "count": 2
+  },
+  {
+    "title": "Vücut",
+    "slug": "vucut",
+    "count": 6
+  }
 ];
 
 type VenuePhoto = { src: string; alt: string };
@@ -75,13 +99,56 @@ const cafePhotos: VenuePhoto[] = [
   { src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" },
   { src: "/cafe/ruby-sign.webp", alt: "Ruby Coffeeshop tabelası" },
 ];
-const scalpPhotos: VenuePhoto[] = [
-  { src: "/scalp/03.webp", alt: "Birinci uygulama — öncesi" },
-  { src: "/scalp/04.webp", alt: "Birinci uygulama — sonrası" },
-  { src: "/scalp/07.webp", alt: "İkinci uygulama — öncesi" },
-  { src: "/scalp/08.webp", alt: "İkinci uygulama — sonrası" },
-];
+const scalpGroups = [[1,2], [3,4,5,6], [7,8,9], [10,11,12], [13,14]];
 
+
+
+function PiercingAlbums() {
+  const [album, setAlbum] = useState(piercings[0]);
+  const [photo, setPhoto] = useState(0);
+  const track = useRef<HTMLDivElement>(null);
+  const step = (delta: number) => {
+    const rail = track.current;
+    if (!rail) return;
+    const next = (Math.round(rail.scrollLeft / rail.clientWidth) + delta + album.count) % album.count;
+    rail.scrollTo({ left: next * rail.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  };
+  return <>
+    <div className="album-picker" aria-label="Piercing albümleri">
+      {piercings.map(item => <button key={item.slug} type="button" className="album-cover"
+        aria-pressed={album.slug === item.slug} aria-controls="piercing-view" onClick={() => { if (album.slug !== item.slug) { setAlbum(item); setPhoto(0); } }}>
+        <img src={`/piercing/albums/${item.slug}/cover.webp`} alt="" loading="lazy" />
+        <span>{item.title}</span>
+      </button>)}
+    </div>
+    <div className="album-view" id="piercing-view">
+      <div><p className="section-label">UYGULAMA ALBÜMÜ</p><h3>{album.title} piercing</h3>
+        <div className="album-nav"><button type="button" aria-label="Önceki piercing fotoğrafı" onClick={() => step(-1)}>←</button>
+          <span aria-live="polite" aria-atomic="true">{album.title} · {photo + 1} / {album.count}</span>
+          <button type="button" aria-label="Sonraki piercing fotoğrafı" onClick={() => step(1)}>→</button></div>
+      </div>
+      <div className="piercing-viewer">
+      <div className="piercing-slides" ref={track} key={album.slug} role="region" aria-label={`${album.title} fotoğraf slaytları`} tabIndex={0}
+        onKeyDown={e => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1); } }}
+        onScroll={e => { const rail = e.currentTarget; setPhoto(Math.min(album.count - 1, Math.max(0, Math.round(rail.scrollLeft / rail.clientWidth)))); }}>
+        {Array.from({length: album.count}, (_, i) => <div className="piercing-slide" key={i}>
+          <img src={`/piercing/albums/${album.slug}/${i + 1}.webp`} alt={`${album.title} piercing örneği ${i + 1}`} loading="lazy" />
+        </div>)}
+      </div>
+        <div className="piercing-previews" role="group" aria-label="Fotoğraf önizlemeleri">
+          {(album.count === 2 ? [0, 1] : [-1, 0, 1]).map(offset => {
+            const n = (photo + offset + album.count) % album.count + 1;
+            const label = offset < 0 ? "Önceki" : offset > 0 ? "Sonraki" : "Seçili";
+            return <button type="button" key={offset} aria-label={`${label} fotoğraf: ${n}`}
+              aria-current={offset === 0 ? "true" : undefined} onClick={() => offset && step(offset)}>
+              <img src={`/piercing/albums/${album.slug}/${n}.webp`} alt="" />
+            </button>;
+          })}
+        </div>
+      </div>
+    </div>
+  </>;
+}
 
 function StudioSpiral() {
   const [active, setActive] = useState(0);
@@ -296,7 +363,6 @@ export default function Home() {
           </p>
           <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
           </p>
-          <a className="text-link" href="#booking">Hikâyeni anlat <span>→</span></a>
         </div>
         <figure className="about-photo"><img src="/studio/about-sign.webp" alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
       </section>
@@ -359,22 +425,7 @@ export default function Home() {
             <p>Tarzınıza ve anatominize uygun hijyenik ve özenli uygulamalar</p>
           </div>
         </div>
-        <div className="piercing-grid">
-          {piercings.map((piercing) => (
-            <article className="piercing-card fade-in-section" key={piercing.no}>
-              <div className="piercing-art">
-                <img src={piercing.image} alt={`${piercing.title} piercing uygulaması`} loading="lazy" />
-              </div>
-              <div className="work-info">
-                <div>
-                  <h3>{piercing.title}</h3>
-                  <p>{piercing.meta}</p>
-                </div>
-                <span>→</span>
-              </div>
-            </article>
-          ))}
-        </div>
+        <PiercingAlbums />
         <p className="walk-in-note">Dermal piercing dışındaki piercing delimleri için 12:00 - 20:00 saatleri arasında randevu almadan gelebilirsiniz.</p>
       </section>
 
@@ -385,29 +436,23 @@ export default function Home() {
           <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
           <a className="text-link" href="https://wa.me/905363312002?text=Merhaba%2C%20sa%C3%A7%20sim%C3%BClasyonu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer">Bilgi al <span>→</span></a>
         </div>
-        <details className="scalp-portfolio">
-          <summary>
-            <span>Uygulamaları gör <small>{scalpPhotos.length} fotoğraf</small></span>
-            <span className="artist-card-toggle" aria-hidden="true" />
-          </summary>
-          <div className="scalp-comparisons">
-            {[0, 2].map((start, index) => (
-              <div className="scalp-comparison" key={start}>
-                <h3>Uygulama {index + 1}</h3>
-                <div className="scalp-pair">
-                  {scalpPhotos.slice(start, start + 2).map((photo, photoIndex) => (
-                    <figure key={photo.src}>
-                      <a href={photo.src} target="_blank" rel="noreferrer" aria-label={`${photo.alt}, tam boy aç`}>
-                        <img src={photo.src} alt={photo.alt} loading="lazy" />
-                      </a>
-                      <figcaption>{photoIndex === 0 ? "Öncesi" : "Sonrası"}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </details>
+        <div className="case-list">
+          {scalpGroups.map(([before, after, ...details], i) => {
+            const src = (n: number) => `/scalp/${String(n).padStart(2, "0")}.webp`;
+            return <article className="case-study" key={before}>
+              <h3>Uygulama {String(i + 1).padStart(2, "0")}</h3>
+              <div className="case-pair">{[before, after].map((n, j) => {
+                const label = j === 0 ? "Öncesi" : "Sonrası";
+                return <figure key={n}><figcaption>{label}</figcaption>
+                  <a href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1} — ${label}`} loading="lazy" /></a>
+                </figure>;
+              })}</div>
+              {details.length > 0 && <div className="case-details"><span>Diğer açılar</span>{details.map((n, j) =>
+                <a key={n} href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1}, diğer açı ${j + 1}`} loading="lazy" /></a>
+              )}</div>}
+            </article>;
+          })}
+        </div>
       </section>
 
       <section className="venue-section cafe-section fade-in-section" id="cafe">
