@@ -163,7 +163,7 @@ textarea {
 .hero-image {
   position: absolute;
   inset: 0;
-  background: url('/studio/hero-new.png') center/cover no-repeat;
+  background: url('/studio/hero-v2.png') center/cover no-repeat;
   transform: scale(1.02);
 }
 
