@@ -2,12 +2,14 @@
 
 import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from "react";
 
+const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const artists = [
   {
     id: "alper",
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı · Piercer",
-    portrait: "/artists/alper.jpeg",
+    portrait: `${B}/artists/alper.jpeg`,
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
@@ -22,7 +24,7 @@ const artists = [
     id: "fatih",
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
-    portrait: "/artists/fatih.jpeg",
+    portrait: `${B}/artists/fatih.jpeg`,
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
@@ -42,7 +44,7 @@ const portfolios = Object.fromEntries(
     artist.id,
     artist.images.map((image, index) => ({
       no: String(index + 1).padStart(2, "0"),
-      image: `/${artist.id}/oct-2026/${image}.webp`,
+      image: `${B}/${artist.id}/oct-2026/${image}.webp`,
     })),
   ]),
 ) as Record<(typeof artists)[number]["id"], { no: string; image: string }[]>;
@@ -83,21 +85,21 @@ const piercings = [
 type VenuePhoto = { src: string; alt: string };
 // Yeni çekimleri public/studio ve public/cafe klasörlerine ekleyip bu listeleri güncelleyin.
 const studioPhotos: VenuePhoto[] = [
-  { src: "/studio/dsc09013.webp", alt: "Stüdyonun genel görünümü" },
-  { src: "/studio/dsc09017.webp", alt: "Stüdyo girişi ve iç mekân" },
-  { src: "/studio/kapak.webp", alt: "Ruby Tattoo dış cephe ve tabelası" },
-  { src: "/studio/dsc08987.webp", alt: "Stüdyonun dövme uygulama alanı" },
-  { src: "/studio/dsc08962.webp", alt: "Piercing koleksiyonu vitrinleri" },
-  { src: "/studio/dsc08968.webp", alt: "Takı vitrini detayı" },
-  { src: "/studio/dsc08971.webp", alt: "Stüdyonun ahşap dekorasyonu" },
-  { src: "/studio/dsc08977.webp", alt: "Stüdyo aynası ve vitrin detayı" },
-  { src: "/studio/dsc08998.webp", alt: "Stüdyodaki heykel detayı" },
-  { src: "/studio/dsc09002.webp", alt: "Stüdyonun oturma alanı" },
-  { src: "/studio/dsc09008.webp", alt: "Ruby coffe" },
+  { src: `${B}/studio/dsc09013.webp`, alt: "Stüdyonun genel görünümü" },
+  { src: `${B}/studio/dsc09017.webp`, alt: "Stüdyo girişi ve iç mekân" },
+  { src: `${B}/studio/kapak.webp`, alt: "Ruby Tattoo dış cephe ve tabelası" },
+  { src: `${B}/studio/dsc08987.webp`, alt: "Stüdyonun dövme uygulama alanı" },
+  { src: `${B}/studio/dsc08962.webp`, alt: "Piercing koleksiyonu vitrinleri" },
+  { src: `${B}/studio/dsc08968.webp`, alt: "Takı vitrini detayı" },
+  { src: `${B}/studio/dsc08971.webp`, alt: "Stüdyonun ahşap dekorasyonu" },
+  { src: `${B}/studio/dsc08977.webp`, alt: "Stüdyo aynası ve vitrin detayı" },
+  { src: `${B}/studio/dsc08998.webp`, alt: "Stüdyodaki heykel detayı" },
+  { src: `${B}/studio/dsc09002.webp`, alt: "Stüdyonun oturma alanı" },
+  { src: `${B}/studio/dsc09008.webp`, alt: "Ruby coffe" },
 ];
 const cafePhotos: VenuePhoto[] = [
-  { src: "/cafe/rubycafe.webp", alt: "Ruby Coffeeshop kahve ve şömine detayı" },
-  { src: "/cafe/ruby-sign.webp", alt: "Ruby Coffeeshop tabelası" },
+  { src: `${B}/cafe/rubycafe.webp`, alt: "Ruby Coffeeshop kahve ve şömine detayı" },
+  { src: `${B}/cafe/ruby-sign.webp`, alt: "Ruby Coffeeshop tabelası" },
 ];
 const scalpGroups = [[1,2], [3,4,5,6], [7,8,9], [10,11,12], [13,14]];
 
@@ -117,7 +119,7 @@ function PiercingAlbums() {
     <div className="album-picker" aria-label="Piercing albümleri">
       {piercings.map(item => <button key={item.slug} type="button" className="album-cover"
         aria-pressed={album.slug === item.slug} aria-controls="piercing-view" onClick={() => { if (album.slug !== item.slug) { setAlbum(item); setPhoto(0); } }}>
-        <img src={`/piercing/albums/${item.slug}/cover.webp`} alt="" loading="lazy" />
+        <img src={`${B}/piercing/albums/${item.slug}/cover.webp`} alt="" loading="lazy" />
         <span>{item.title}</span>
       </button>)}
     </div>
@@ -132,7 +134,7 @@ function PiercingAlbums() {
         onKeyDown={e => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1); } }}
         onScroll={e => { const rail = e.currentTarget; setPhoto(Math.min(album.count - 1, Math.max(0, Math.round(rail.scrollLeft / rail.clientWidth)))); }}>
         {Array.from({length: album.count}, (_, i) => <div className="piercing-slide" key={i}>
-          <img src={`/piercing/albums/${album.slug}/${i + 1}.webp`} alt={`${album.title} piercing örneği ${i + 1}`} loading="lazy" />
+          <img src={`${B}/piercing/albums/${album.slug}/${i + 1}.webp`} alt={`${album.title} piercing örneği ${i + 1}`} loading="lazy" />
         </div>)}
       </div>
         <div className="piercing-previews" role="group" aria-label="Fotoğraf önizlemeleri">
@@ -141,7 +143,7 @@ function PiercingAlbums() {
             const label = offset < 0 ? "Önceki" : offset > 0 ? "Sonraki" : "Seçili";
             return <button type="button" key={offset} aria-label={`${label} fotoğraf: ${n}`}
               aria-current={offset === 0 ? "true" : undefined} onClick={() => offset && step(offset)}>
-              <img src={`/piercing/albums/${album.slug}/${n}.webp`} alt="" />
+              <img src={`${B}/piercing/albums/${album.slug}/${n}.webp`} alt="" />
             </button>;
           })}
         </div>
@@ -307,7 +309,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Ruby Tattoo Studio ana sayfa">
-          <img className="brand-logo" src="/ruby-studio-logo.png" alt="Ruby Tattoo Studio" />
+          <img className="brand-logo" src={`${B}/ruby-studio-logo.png`} alt="Ruby Tattoo Studio" />
         </a>
         <nav className="nav" aria-label="Ana menü">
           <a href="#studio">Stüdyo</a>
@@ -343,7 +345,7 @@ export default function Home() {
           </ul>
         </div>
         <div className="hero-right">
-          <div className="hero-image" />
+          <div className="hero-image" style={{ backgroundImage: `url(${B}/studio/hero-v2.png)` }} />
         </div>
       </section>
 
@@ -364,7 +366,7 @@ export default function Home() {
           <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
           </p>
         </div>
-        <figure className="about-photo"><img src="/studio/about-sign.webp" alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
+        <figure className="about-photo"><img src={`${B}/studio/about-sign.webp`} alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
       </section>
 
       <section className="works artists-section" id="artists">
@@ -394,7 +396,7 @@ export default function Home() {
               </summary>
               <div className="artist-profile-content">
                 <div className="artist-about">
-                  <div className="artist-about-aside"><p className="section-label">HAKKINDA</p>{artist.id === "alper" && <img className="artist-bear" src="/artists/alper-bear.jpeg" alt="Alper’in ayıcığı" loading="lazy" />}</div>
+                  <div className="artist-about-aside"><p className="section-label">HAKKINDA</p>{artist.id === "alper" && <img className="artist-bear" src={`${B}/artists/alper-bear.jpeg`} alt="Alper’in ayıcığı" loading="lazy" />}</div>
                   <div className="artist-bio">
                     {artist.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   </div>
@@ -438,7 +440,7 @@ export default function Home() {
         </div>
         <div className="case-list">
           {scalpGroups.map(([before, after, ...details], i) => {
-            const src = (n: number) => `/scalp/${String(n).padStart(2, "0")}.webp`;
+            const src = (n: number) => `${B}/scalp/${String(n).padStart(2, "0")}.webp`;
             return <article className="case-study" key={before}>
               <h3>Uygulama {String(i + 1).padStart(2, "0")}</h3>
               <div className="case-pair">{[before, after].map((n, j) => {
@@ -516,7 +518,7 @@ export default function Home() {
       <footer className="fade-in-section">
         <div className="footer-logo">
           <span className="footer-logo-frame">
-            <img src="/ruby-studio-logo.png" alt="Ruby Tattoo Studio" />
+            <img src={`${B}/ruby-studio-logo.png`} alt="Ruby Tattoo Studio" />
           </span>
         </div>
         <div className="footer-location">
