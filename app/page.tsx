@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from "react";
 
+import { useMedia } from "./cms/provider";
+
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const artists = [
@@ -53,31 +55,37 @@ const piercings = [
   {
     "title": "Kulak",
     "slug": "kulak",
+    "order": [2, 5, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 26, 27, 28, 1, 3, 4, 6, 7, 8, 9, 12, 20, 25],
     "count": 28
   },
   {
     "title": "Burun",
     "slug": "burun",
+    "order": [2, 5, 1, 3, 4],
     "count": 5
   },
   {
     "title": "Kaş",
     "slug": "kas",
+    "order": [3, 1, 2],
     "count": 3
   },
   {
     "title": "Dudak-Ağız içi",
     "slug": "dudak",
+    "order": [1, 2, 5, 6, 7, 3, 4],
     "count": 7
   },
   {
     "title": "Dermal",
     "slug": "dermal",
+    "order": [1, 2],
     "count": 2
   },
   {
     "title": "Vücut",
     "slug": "vucut",
+    "order": [1, 2, 3, 4, 5, 6],
     "count": 6
   }
 ];
@@ -105,14 +113,62 @@ const scalpGroups = [[1,2], [3,4,5,6], [7,8,9], [10,11,12], [13,14]];
 
 
 
+function ScalpGallery() {
+  const uploaded = useMedia();
+  const groups = [...scalpGroups.map(group => group.map(n => `${B}/scalp/${String(n).padStart(2, "0")}.webp`)),
+    ...uploaded.filter(item => item.section === "scalp" && item.paths.length === 2).map(item => item.paths)];
+  const [active, setActive] = useState(0);
+  const touch = useRef<{x: number; y: number} | null>(null);
+  const step = (delta: number) => setActive(current => (current + delta + groups.length) % groups.length);
+  const [before, after, ...details] = groups[active];
+  const i = active;
+  return <div className="case-list">
+    <div className="album-nav scalp-nav">
+      <button type="button" aria-label="Önceki saç simülasyonu uygulaması" onClick={() => step(-1)}>←</button>
+      <span aria-live="polite" aria-atomic="true">Uygulama {active + 1} / {groups.length}</span>
+      <button type="button" aria-label="Sonraki saç simülasyonu uygulaması" onClick={() => step(1)}>→</button>
+    </div>
+    <div role="region" aria-label="Saç simülasyonu uygulamaları" tabIndex={0}
+      onKeyDown={e => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1); } }}
+      onTouchStart={e => { touch.current = {x:e.touches[0].clientX, y:e.touches[0].clientY}; }}
+      onTouchCancel={() => { touch.current = null; }}
+      onTouchEnd={e => {
+        if (!touch.current) return;
+        const dx = e.changedTouches[0].clientX - touch.current.x;
+        const dy = e.changedTouches[0].clientY - touch.current.y;
+        touch.current = null;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+      }}>
+      {(() => {
+            const src = (n: string) => n;
+            return <article className="case-study" key={before}>
+              <h3>Uygulama {String(i + 1).padStart(2, "0")}</h3>
+              <div className="case-pair">{[before, after].map((n, j) => {
+                const label = j === 0 ? "Öncesi" : "Sonrası";
+                return <figure key={n}><figcaption>{label}</figcaption>
+                  <a href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1} — ${label}`} loading="lazy" /></a>
+                </figure>;
+              })}</div>
+              {details.length > 0 && <div className="case-details"><span>Diğer açılar</span>{details.map((n, j) =>
+                <a key={n} href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1}, diğer açı ${j + 1}`} loading="lazy" /></a>
+              )}</div>}
+            </article>;
+      })()}
+    </div>
+  </div>;
+}
+
 function PiercingAlbums() {
+  const uploaded = useMedia();
   const [album, setAlbum] = useState(piercings[0]);
+  const photos = [...album.order.map(n => `${B}/piercing/albums/${album.slug}/${n}.webp`),
+    ...uploaded.filter(item => item.section === `piercing-${album.slug}`).flatMap(item => item.paths)];
   const [photo, setPhoto] = useState(0);
   const track = useRef<HTMLDivElement>(null);
   const step = (delta: number) => {
     const rail = track.current;
     if (!rail) return;
-    const next = (Math.round(rail.scrollLeft / rail.clientWidth) + delta + album.count) % album.count;
+    const next = (Math.round(rail.scrollLeft / rail.clientWidth) + delta + photos.length) % photos.length;
     rail.scrollTo({ left: next * rail.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   };
   return <>
@@ -126,24 +182,24 @@ function PiercingAlbums() {
     <div className="album-view" id="piercing-view">
       <div><p className="section-label">UYGULAMA ALBÜMÜ</p><h3>{album.title} piercing</h3>
         <div className="album-nav"><button type="button" aria-label="Önceki piercing fotoğrafı" onClick={() => step(-1)}>←</button>
-          <span aria-live="polite" aria-atomic="true">{album.title} · {photo + 1} / {album.count}</span>
+          <span aria-live="polite" aria-atomic="true">{album.title} · {photo + 1} / {photos.length}</span>
           <button type="button" aria-label="Sonraki piercing fotoğrafı" onClick={() => step(1)}>→</button></div>
       </div>
       <div className="piercing-viewer">
       <div className="piercing-slides" ref={track} key={album.slug} role="region" aria-label={`${album.title} fotoğraf slaytları`} tabIndex={0}
         onKeyDown={e => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1); } }}
-        onScroll={e => { const rail = e.currentTarget; setPhoto(Math.min(album.count - 1, Math.max(0, Math.round(rail.scrollLeft / rail.clientWidth)))); }}>
-        {Array.from({length: album.count}, (_, i) => <div className="piercing-slide" key={i}>
-          <img src={`${B}/piercing/albums/${album.slug}/${i + 1}.webp`} alt={`${album.title} piercing örneği ${i + 1}`} loading="lazy" />
+        onScroll={e => { const rail = e.currentTarget; setPhoto(Math.min(photos.length - 1, Math.max(0, Math.round(rail.scrollLeft / rail.clientWidth)))); }}>
+        {Array.from({length: photos.length}, (_, i) => <div className="piercing-slide" key={i}>
+          <img src={photos[i]} alt={`${album.title} piercing örneği ${i + 1}`} loading="lazy" />
         </div>)}
       </div>
         <div className="piercing-previews" role="group" aria-label="Fotoğraf önizlemeleri">
-          {(album.count === 2 ? [0, 1] : [-1, 0, 1]).map(offset => {
-            const n = (photo + offset + album.count) % album.count + 1;
+          {(photos.length === 2 ? [0, 1] : [-1, 0, 1]).map(offset => {
+            const n = (photo + offset + photos.length) % photos.length + 1;
             const label = offset < 0 ? "Önceki" : offset > 0 ? "Sonraki" : "Seçili";
             return <button type="button" key={offset} aria-label={`${label} fotoğraf: ${n}`}
               aria-current={offset === 0 ? "true" : undefined} onClick={() => offset && step(offset)}>
-              <img src={`${B}/piercing/albums/${album.slug}/${n}.webp`} alt="" />
+              <img src={photos[n - 1]} alt="" />
             </button>;
           })}
         </div>
@@ -153,18 +209,20 @@ function PiercingAlbums() {
 }
 
 function StudioSpiral() {
+  const uploaded = useMedia();
+  const photos = [...studioPhotos, ...uploaded.filter(item => item.section === "studio").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Tattoo stüdyosu"})))];
   const [active, setActive] = useState(0);
   const startX = useRef<number | null>(null);
   const suppressClick = useRef(false);
-  const move = (step: number) => setActive(value => (value + step + studioPhotos.length) % studioPhotos.length);
+  const move = (step: number) => setActive(value => (value + step + photos.length) % photos.length);
   return <div className="studio-spiral" role="region" aria-label="Stüdyo fotoğraf galerisi" aria-roledescription="karusel">
     <div className="spiral-stage" onTouchStart={event => { startX.current = event.touches[0].clientX; suppressClick.current = false; }} onTouchEnd={event => {
       if (startX.current !== null) { const delta = event.changedTouches[0].clientX - startX.current; if (Math.abs(delta) > 45) { move(delta < 0 ? 1 : -1); suppressClick.current = true; } }
       startX.current = null;
     }} onClickCapture={event => { if (suppressClick.current) { event.preventDefault(); suppressClick.current = false; } }}>
-      {studioPhotos.map((photo, index) => {
-        let offset = (index - active + studioPhotos.length) % studioPhotos.length;
-        if (offset > studioPhotos.length / 2) offset -= studioPhotos.length;
+      {photos.map((photo, index) => {
+        let offset = (index - active + photos.length) % photos.length;
+        if (offset > photos.length / 2) offset -= photos.length;
         return <a key={photo.src} className="spiral-photo" data-offset={offset} href={photo.src} target="_blank" rel="noreferrer" tabIndex={offset === 0 ? 0 : -1} aria-hidden={offset !== 0} aria-label={`${photo.alt}, büyük aç`}>
           <img src={photo.src} alt={photo.alt} loading="lazy" draggable="false" />
         </a>;
@@ -172,14 +230,16 @@ function StudioSpiral() {
     </div>
     <div className="spiral-controls">
       <button type="button" onClick={() => move(-1)} aria-label="Önceki stüdyo fotoğrafı">←</button>
-      <p aria-live="polite" aria-atomic="true"><span>{String(active + 1).padStart(2, "0")} / {String(studioPhotos.length).padStart(2, "0")}</span>{studioPhotos[active].alt}</p>
+      <p aria-live="polite" aria-atomic="true"><span>{String(active + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}</span>{photos[active].alt}</p>
       <button type="button" onClick={() => move(1)} aria-label="Sonraki stüdyo fotoğrafı">→</button>
     </div>
   </div>;
 }
 
 function ArtistDeck({ artist }: { artist: (typeof artists)[number] }) {
-  const photos = portfolios[artist.id].map(work => ({ src: work.image, alt: `${artist.name} dövme çalışması ${work.no}` }));
+  const uploaded = useMedia();
+  const photos = [...portfolios[artist.id].map(work => ({ src: work.image, alt: `${artist.name} dövme çalışması ${work.no}` })),
+    ...uploaded.filter(item => item.section === artist.id).flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || `${artist.name} dövme çalışması` })))];
   const [active, setActive] = useState(0);
   const startX = useRef<number | null>(null);
   const suppressClick = useRef(false);
@@ -225,6 +285,8 @@ const faqs = [
 ];
 
 export default function Home() {
+  const uploaded = useMedia();
+  const cafeImages = [...cafePhotos, ...uploaded.filter(item => item.section === "cafe").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Coffeeshop"})))];
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
@@ -438,23 +500,7 @@ export default function Home() {
           <p>Saç simülasyonu uygulamalarımız hakkında bilgi almak ve beklentilerinizi Alper Ünal ile konuşmak için bize ulaşın.</p>
           <a className="text-link" href="https://wa.me/905363312002?text=Merhaba%2C%20sa%C3%A7%20sim%C3%BClasyonu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer">Bilgi al <span>→</span></a>
         </div>
-        <div className="case-list">
-          {scalpGroups.map(([before, after, ...details], i) => {
-            const src = (n: number) => `${B}/scalp/${String(n).padStart(2, "0")}.webp`;
-            return <article className="case-study" key={before}>
-              <h3>Uygulama {String(i + 1).padStart(2, "0")}</h3>
-              <div className="case-pair">{[before, after].map((n, j) => {
-                const label = j === 0 ? "Öncesi" : "Sonrası";
-                return <figure key={n}><figcaption>{label}</figcaption>
-                  <a href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1} — ${label}`} loading="lazy" /></a>
-                </figure>;
-              })}</div>
-              {details.length > 0 && <div className="case-details"><span>Diğer açılar</span>{details.map((n, j) =>
-                <a key={n} href={src(n)} target="_blank" rel="noreferrer"><img src={src(n)} alt={`Uygulama ${i + 1}, diğer açı ${j + 1}`} loading="lazy" /></a>
-              )}</div>}
-            </article>;
-          })}
-        </div>
+        <ScalpGallery />
       </section>
 
       <section className="venue-section cafe-section fade-in-section" id="cafe">
@@ -462,7 +508,7 @@ export default function Home() {
           <p className="section-label">06 — KAFE</p>
           <div><h2>Ruby Coffeeshop</h2><p className="section-intro">Stüdyomuzun hemen karşısında bir kahve molası.</p></div>
         </div>
-        <VenueGallery images={cafePhotos} label="Ruby Coffeeshop" />
+        <VenueGallery images={cafeImages} label="Ruby Coffeeshop" />
       </section>
 
       <section className="faq fade-in-section" id="faq">

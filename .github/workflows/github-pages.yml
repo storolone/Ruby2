@@ -27,6 +27,9 @@ jobs:
       - run: npx next build
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_STUDIO_URL: ${{ vars.NEXT_PUBLIC_SANITY_STUDIO_URL }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
