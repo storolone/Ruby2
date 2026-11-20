@@ -1,3 +1,4 @@
+import { assetSlots } from './catalog';
 import { sections } from './sections';
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -5,7 +6,11 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 const knownSections = new Set<string>(sections.map(([value]) => value));
 export const cmsConfigured = !!projectId && /^[a-z0-9]+$/.test(projectId) && /^[a-z0-9_-]+$/.test(dataset);
 
-export type Media = { id: string; section: string; paths: string[]; caption: string };
+export type Media = { id: string; section: string; paths: string[]; caption: string; replaces?: string };
+
+export function mediaSrc(media: Media[], basePath: string, original: string) {
+  return media.find(item => item.replaces === original)?.paths[0] ?? basePath + original;
+}
 
 function imageUrl(value: unknown) {
   const prefix = `https://cdn.sanity.io/images/${projectId}/${dataset}/`;
@@ -17,9 +22,9 @@ function imageUrl(value: unknown) {
 
 export async function readMedia(signal?: AbortSignal): Promise<Media[]> {
   if (!cmsConfigured) return [];
-  const query = `*[_type == "rubyPhoto" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]
+  const query = `*[_type in ["rubyPhoto", "rubyPhotoSlot"] && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]
     | order(_createdAt asc, _id asc) {
-      "id": _id, section, caption,
+      "id": _id, _type, section, caption,
       "main": image.asset->url, "before": before.asset->url, "after": after.asset->url
     }`;
   const params = new URLSearchParams({query, perspective: 'published'});
@@ -27,6 +32,11 @@ export async function readMedia(signal?: AbortSignal): Promise<Media[]> {
   if (!response.ok) throw new Error('Görseller alınamadı.');
   const {result} = await response.json() as {result: Record<string, unknown>[]};
   return result.flatMap(row => {
+    if (row._type === 'rubyPhotoSlot') {
+      const slot = assetSlots.find(item => item.id === row.id);
+      const url = imageUrl(row.main);
+      return slot && url ? [{id: slot.id, section: '', paths: [url], caption: '', replaces: slot.path}] : [];
+    }
     if (typeof row.id !== 'string' || typeof row.section !== 'string' || !knownSections.has(row.section)) return [];
     const urls = row.section === 'scalp' ? [imageUrl(row.before), imageUrl(row.after)] : [imageUrl(row.main)];
     const paths = urls.filter((url): url is string => url !== null);

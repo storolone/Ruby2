@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from "react";
 
+import { cafePhotos, studioPhotos, piercings, scalpGroups, type VenuePhoto } from "./cms/catalog";
+import { mediaSrc } from "./cms/client";
 import { useMedia } from "./cms/provider";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -11,7 +13,7 @@ const artists = [
     id: "alper",
     name: "Alper Ünal",
     role: "Kurucu · Dövme Sanatçısı · Piercer",
-    portrait: `${B}/artists/alper.jpeg`,
+    portrait: "/artists/alper.jpeg",
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Dotwork", "Mandala", "Embroidery", "Sketch", "Maori", "Geometrik", "Watercolor", "Old / New School", "Fine Line", "Minimal", "Japanese (Irezumi)", "Trash Polka", "Anime", "Saç Simülasyonu"],
     bio: [
@@ -26,7 +28,7 @@ const artists = [
     id: "fatih",
     name: "Fatih Özgön",
     role: "Dövme Sanatçısı",
-    portrait: `${B}/artists/fatih.jpeg`,
+    portrait: "/artists/fatih.jpeg",
     images: Array.from({ length: 15 }, (_, i) => i + 1),
     specialties: ["Black and gray realism", "Colored realism", "Micro realism", "Portrait", "Animal realism", "Black work", "Illustrative", "Cover-up", "Custom tattoo", "Trash polka", "Watercolor"],
     bio: [
@@ -46,76 +48,14 @@ const portfolios = Object.fromEntries(
     artist.id,
     artist.images.map((image, index) => ({
       no: String(index + 1).padStart(2, "0"),
-      image: `${B}/${artist.id}/oct-2026/${image}.webp`,
+      image: `/${artist.id}/oct-2026/${image}.webp`,
     })),
   ]),
 ) as Record<(typeof artists)[number]["id"], { no: string; image: string }[]>;
 
-const piercings = [
-  {
-    "title": "Kulak",
-    "slug": "kulak",
-    "order": [2, 5, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 26, 27, 28, 1, 3, 4, 6, 7, 8, 9, 12, 20, 25],
-    "count": 28
-  },
-  {
-    "title": "Burun",
-    "slug": "burun",
-    "order": [2, 5, 1, 3, 4],
-    "count": 5
-  },
-  {
-    "title": "Kaş",
-    "slug": "kas",
-    "order": [3, 1, 2],
-    "count": 3
-  },
-  {
-    "title": "Dudak-Ağız içi",
-    "slug": "dudak",
-    "order": [1, 2, 5, 6, 7, 3, 4],
-    "count": 7
-  },
-  {
-    "title": "Dermal",
-    "slug": "dermal",
-    "order": [1, 2],
-    "count": 2
-  },
-  {
-    "title": "Vücut",
-    "slug": "vucut",
-    "order": [1, 2, 3, 4, 5, 6],
-    "count": 6
-  }
-];
-
-type VenuePhoto = { src: string; alt: string };
-// Yeni çekimleri public/studio ve public/cafe klasörlerine ekleyip bu listeleri güncelleyin.
-const studioPhotos: VenuePhoto[] = [
-  { src: `${B}/studio/dsc09013.webp`, alt: "Stüdyonun genel görünümü" },
-  { src: `${B}/studio/dsc09017.webp`, alt: "Stüdyo girişi ve iç mekân" },
-  { src: `${B}/studio/kapak.webp`, alt: "Ruby Tattoo dış cephe ve tabelası" },
-  { src: `${B}/studio/dsc08987.webp`, alt: "Stüdyonun dövme uygulama alanı" },
-  { src: `${B}/studio/dsc08962.webp`, alt: "Piercing koleksiyonu vitrinleri" },
-  { src: `${B}/studio/dsc08968.webp`, alt: "Takı vitrini detayı" },
-  { src: `${B}/studio/dsc08971.webp`, alt: "Stüdyonun ahşap dekorasyonu" },
-  { src: `${B}/studio/dsc08977.webp`, alt: "Stüdyo aynası ve vitrin detayı" },
-  { src: `${B}/studio/dsc08998.webp`, alt: "Stüdyodaki heykel detayı" },
-  { src: `${B}/studio/dsc09002.webp`, alt: "Stüdyonun oturma alanı" },
-  { src: `${B}/studio/dsc09008.webp`, alt: "Ruby coffe" },
-];
-const cafePhotos: VenuePhoto[] = [
-  { src: `${B}/cafe/rubycafe.webp`, alt: "Ruby Coffeeshop kahve ve şömine detayı" },
-  { src: `${B}/cafe/ruby-sign.webp`, alt: "Ruby Coffeeshop tabelası" },
-];
-const scalpGroups = [[1,2], [3,4,5,6], [7,8,9], [10,11,12], [13,14]];
-
-
-
 function ScalpGallery() {
   const uploaded = useMedia();
-  const groups = [...scalpGroups.map(group => group.map(n => `${B}/scalp/${String(n).padStart(2, "0")}.webp`)),
+  const groups = [...scalpGroups.map(group => group.map(n => mediaSrc(uploaded, B, `/scalp/${String(n).padStart(2, "0")}.webp`))),
     ...uploaded.filter(item => item.section === "scalp" && item.paths.length === 2).map(item => item.paths)];
   const [active, setActive] = useState(0);
   const touch = useRef<{x: number; y: number} | null>(null);
@@ -161,7 +101,7 @@ function ScalpGallery() {
 function PiercingAlbums() {
   const uploaded = useMedia();
   const [album, setAlbum] = useState(piercings[0]);
-  const photos = [...album.order.map(n => `${B}/piercing/albums/${album.slug}/${n}.webp`),
+  const photos = [...album.order.map(n => mediaSrc(uploaded, B, `/piercing/albums/${album.slug}/${n}.webp`)),
     ...uploaded.filter(item => item.section === `piercing-${album.slug}`).flatMap(item => item.paths)];
   const [photo, setPhoto] = useState(0);
   const track = useRef<HTMLDivElement>(null);
@@ -175,7 +115,7 @@ function PiercingAlbums() {
     <div className="album-picker" aria-label="Piercing albümleri">
       {piercings.map(item => <button key={item.slug} type="button" className="album-cover"
         aria-pressed={album.slug === item.slug} aria-controls="piercing-view" onClick={() => { if (album.slug !== item.slug) { setAlbum(item); setPhoto(0); } }}>
-        <img src={`${B}/piercing/albums/${item.slug}/cover.webp`} alt="" loading="lazy" />
+        <img src={mediaSrc(uploaded, B, `/piercing/albums/${item.slug}/cover.webp`)} alt="" loading="lazy" />
         <span>{item.title}</span>
       </button>)}
     </div>
@@ -210,7 +150,7 @@ function PiercingAlbums() {
 
 function StudioSpiral() {
   const uploaded = useMedia();
-  const photos = [...studioPhotos, ...uploaded.filter(item => item.section === "studio").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Tattoo stüdyosu"})))];
+  const photos = [...studioPhotos.map(photo => ({...photo, src: mediaSrc(uploaded, B, photo.src)})), ...uploaded.filter(item => item.section === "studio").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Tattoo stüdyosu"})))];
   const [active, setActive] = useState(0);
   const startX = useRef<number | null>(null);
   const suppressClick = useRef(false);
@@ -238,7 +178,7 @@ function StudioSpiral() {
 
 function ArtistDeck({ artist }: { artist: (typeof artists)[number] }) {
   const uploaded = useMedia();
-  const photos = [...portfolios[artist.id].map(work => ({ src: work.image, alt: `${artist.name} dövme çalışması ${work.no}` })),
+  const photos = [...portfolios[artist.id].map(work => ({ src: mediaSrc(uploaded, B, work.image), alt: `${artist.name} dövme çalışması ${work.no}` })),
     ...uploaded.filter(item => item.section === artist.id).flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || `${artist.name} dövme çalışması` })))];
   const [active, setActive] = useState(0);
   const startX = useRef<number | null>(null);
@@ -286,7 +226,7 @@ const faqs = [
 
 export default function Home() {
   const uploaded = useMedia();
-  const cafeImages = [...cafePhotos, ...uploaded.filter(item => item.section === "cafe").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Coffeeshop"})))];
+  const cafeImages = [...cafePhotos.map(photo => ({...photo, src: mediaSrc(uploaded, B, photo.src)})), ...uploaded.filter(item => item.section === "cafe").flatMap(item => item.paths.map(path => ({src: path, alt: item.caption || "Ruby Coffeeshop"})))];
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
@@ -407,7 +347,7 @@ export default function Home() {
           </ul>
         </div>
         <div className="hero-right">
-          <div className="hero-image" style={{ backgroundImage: `url(${B}/studio/hero-v2.png)` }} />
+          <div className="hero-image" style={{ backgroundImage: `url("${mediaSrc(uploaded, B, "/studio/hero-v2.png")}")` }} />
         </div>
       </section>
 
@@ -428,7 +368,7 @@ export default function Home() {
           <p>Hem dövme hem piercing alanında uzman ve donanımlı kadrosu, stüdyonun kalanından ayrılmış dövme çalışma alanları, piercing odaları ile hemen karşısında bulunan ve misafirlerimizi ağırladığımız kafemiz Ruby Coffeeshop’ıyla her yönden tam donanımlı bir dövme stüdyosudur. Bunun yanında Türkiye çapında en kapsamlı piercing modeli çeşitliliği olan nadir stüdyolardan olduğunu rahatlıkla söyleyebiliriz.
           </p>
         </div>
-        <figure className="about-photo"><img src={`${B}/studio/about-sign.webp`} alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
+        <figure className="about-photo"><img src={mediaSrc(uploaded, B, "/studio/about-sign.webp")} alt="Ruby Tattoo neon tabelası" loading="lazy" /></figure>
       </section>
 
       <section className="works artists-section" id="artists">
@@ -444,7 +384,7 @@ export default function Home() {
             <details className="portfolio-artist artist-profile" key={artist.id}>
               <summary>
                 <div className="artist-portrait">
-                  <img src={artist.portrait} alt={`${artist.name}, Ruby Tattoo dövme sanatçısı`} />
+                  <img src={mediaSrc(uploaded, B, artist.portrait)} alt={`${artist.name}, Ruby Tattoo dövme sanatçısı`} />
                 </div>
                 <div className="artist-card-copy">
                   <span>0{index + 1}</span>
@@ -458,7 +398,7 @@ export default function Home() {
               </summary>
               <div className="artist-profile-content">
                 <div className="artist-about">
-                  <div className="artist-about-aside"><p className="section-label">HAKKINDA</p>{artist.id === "alper" && <img className="artist-bear" src={`${B}/artists/alper-bear.jpeg`} alt="Alper’in ayıcığı" loading="lazy" />}</div>
+                  <div className="artist-about-aside"><p className="section-label">HAKKINDA</p>{artist.id === "alper" && <img className="artist-bear" src={mediaSrc(uploaded, B, "/artists/alper-bear.jpeg")} alt="Alper’in ayıcığı" loading="lazy" />}</div>
                   <div className="artist-bio">
                     {artist.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   </div>
