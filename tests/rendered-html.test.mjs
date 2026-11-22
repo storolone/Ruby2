@@ -25,10 +25,10 @@ test("renders Ruby with working section links and existing gallery assets", asyn
   assert.ok(html.indexOf('id="about"') < html.indexOf('id="artists"'));
 });
 
-test("offers a tattoo reference file instead of a style or piercing appointment", async () => {
+test("directs tattoo references to WhatsApp without a file upload", async () => {
   const html = await (await render()).text();
-  assert.match(html, /type="file"[^>]*name="reference"/);
-  assert.match(html, /Dosya yükleyin/);
+  assert.doesNotMatch(html, /type="file"/);
+  assert.match(html, /Örnek fotoğrafınızı WhatsApp sohbetinde ekleyebilirsiniz/);
   assert.doesNotMatch(html, /name="style"|Piercing randevusu al|STÜDYO MİSAFİRİ|menu-toggle/);
   assert.match(html, /Dermal piercing dışındaki piercing delimleri için 12:00 - 20:00/);
 });

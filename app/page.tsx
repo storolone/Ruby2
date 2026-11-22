@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, useRef, type FormEvent } from "react";
 
 import { cafePhotos, studioPhotos, piercings, scalpGroups, type VenuePhoto } from "./cms/catalog";
 import { mediaSrc } from "./cms/client";
@@ -237,33 +237,10 @@ export default function Home() {
     return () => { observer.disconnect(); document.documentElement.style.removeProperty("--site-header-height"); };
   }, []);
 
-  const [reference, setReference] = useState<File | null>(null);
-  const [referencePreview, setReferencePreview] = useState("");
-  const [fileError, setFileError] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
-
-  useEffect(() => () => {
-    if (referencePreview) URL.revokeObjectURL(referencePreview);
-  }, [referencePreview]);
-
-  const handleReferenceChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setFileError("");
-    setBookingStatus("");
-    setReference(null);
-    setReferencePreview("");
-    if (!file) return;
-    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 10 * 1024 * 1024) {
-      setFileError("Lütfen en fazla 10 MB boyutunda JPG, PNG veya WebP fotoğraf seçin.");
-      event.target.value = "";
-      return;
-    }
-    setReference(file);
-    setReferencePreview(URL.createObjectURL(file));
-  };
   const [activeFaq, setActiveFaq] = useState(0);
 
-  const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -275,22 +252,10 @@ export default function Home() {
       "",
       `Ad Soyad: ${fullName}`,
       `Telefon: ${phone}`,
-      ...(reference ? [`Dövme referansım: ${reference.name}`] : []),
       `Fikrim: ${idea || "Henüz belirtmedim."}`,
     ].join("\n");
 
-    if (reference && navigator.canShare?.({ files: [reference] })) {
-      try {
-        await navigator.share({ files: [reference], text: message, title: "Ruby Tattoo · Dövme randevusu" });
-        setBookingStatus("Paylaşım ekranı kapandı. Randevu talebinizin Ruby Tattoo’ya gönderildiğini seçtiğiniz uygulamadan kontrol edin.");
-        return;
-      } catch (error) {
-        if (error instanceof Error && error.name === "AbortError") return;
-      }
-    }
-    setBookingStatus(reference
-      ? "WhatsApp’ta mesajınızı gönderirken seçtiğiniz fotoğrafı ataç / + düğmesiyle ayrıca ekleyin. Fotoğraf otomatik aktarılmadı."
-      : "WhatsApp’ta açılan mesajı kontrol edip gönderin.");
+    setBookingStatus("WhatsApp’ta açılan mesajı kontrol edip gönderin.");
     window.open(`https://wa.me/905363312002?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
@@ -499,23 +464,8 @@ export default function Home() {
         <form onSubmit={handleBookingSubmit}>
           <label>AD SOYAD<input type="text" name="fullName" autoComplete="name" placeholder="Adınız Soyadınız" required /></label>
           <label>TELEFON<input type="tel" name="phone" autoComplete="tel" placeholder="05__ ___ __ __" required /></label>
-          <label htmlFor="tattoo-reference">YAPTIRMAK İSTEDİĞİNİZ DÖVME
-            <input id="tattoo-reference" type="file" name="reference" accept="image/jpeg,image/png,image/webp" onChange={handleReferenceChange} aria-describedby="reference-help reference-error" />
-          </label>
-          <small id="reference-help">Dosya yükleyin</small>
-          <p id="reference-error" className="form-error" role="alert">{fileError}</p>
-          {reference && <div className="reference-preview">
-            {referencePreview && <img src={referencePreview} alt="Seçtiğiniz dövme referansı" />}
-            <span>{reference.name}</span>
-            <button type="button" onClick={() => {
-              setReference(null);
-              setReferencePreview("");
-              setBookingStatus("");
-              const input = document.getElementById("tattoo-reference") as HTMLInputElement | null;
-              if (input) input.value = "";
-            }}>Fotoğrafı kaldır</button>
-          </div>}
           <label>FİKRİNİZ<textarea name="idea" placeholder="Boyut, bölge ve fikrinizden kısaca bahsedin..." rows={3} /></label>
+          <p className="booking-status">Örnek fotoğrafınızı WhatsApp sohbetinde ekleyebilirsiniz.</p>
           <button type="submit">Randevu Al <span>→</span></button>
           <p className="booking-status" role="status">{bookingStatus}</p>
         </form>
