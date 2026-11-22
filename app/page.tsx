@@ -309,6 +309,26 @@ export default function Home() {
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "TattooParlor",
+        "@id": "https://rubytattoo.com.tr/#studio",
+        name: "Ruby Tattoo Studio",
+        url: "https://rubytattoo.com.tr/",
+        image: "https://rubytattoo.com.tr/studio/dsc09013.webp",
+        logo: "https://rubytattoo.com.tr/ruby-studio-logo.png",
+        telephone: "+905363312002",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Eski Kuyumcular, 13003 Sokak No:4/C",
+          addressLocality: "Karesi",
+          addressRegion: "Balıkesir",
+          postalCode: "10010",
+          addressCountry: "TR"
+        },
+        sameAs: ["https://www.instagram.com/ruby_tattoostudio/"]
+      }).replace(/</g, "\u003c") }} />
+
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Ruby Tattoo Studio ana sayfa">
           <img className="brand-logo" src={`${B}/ruby-studio-logo.png`} alt="Ruby Tattoo Studio" />
